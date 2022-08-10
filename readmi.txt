@@ -1,0 +1,67 @@
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getUpdates
+
+# получить все сообщения
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getUpdates?limit=4
+# ограничиить лимитом 4шт с конца
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/sendMessage?chat_id=-1591244696&text=hello
+# отправил в группу где у меня нет доступа получил ошибку
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/sendMessage?chat_id=-765958396&text=hello
+# отправил соощение в группу где был бот , для нового бота нужно сделать /setprivacy DISABLED что бы читать все сообщения
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getMe
+# тестирование токена
+
+# 
+доки
+https://tlgrm.ru/docs/bots/api
+https://core.telegram.org/bots/api   #беру от сюда
+
+
+
+
+
+-1032883247##не верный!!!!    React — русскоговорящее сообщество
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChat?chat_id=@react_js
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChat?chat_id=-1001032883247
+
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChatAdministrators?chat_id=-1001032883247
+# администратор чата
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChatMemberCount?chat_id=-1001032883247
+# колличество человек
+
+
+-1425095465      UprisingHub
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChat?chat_id=-1425095465               #не работает, возможнго приватная группа
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChatAdministrators?chat_id=-1425095465 #не работает, возможнго приватная группа
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChatMemberCount?chat_id=-1425095465    #не работает, возможнго приватная группа
+
+
+
+-765958396    TEMP
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChat?chat_id=-765958396
+# по имени получть id
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChatAdministrators?chat_id=-765958396
+# администратор чата
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChatMemberCount?chat_id=-765958396
+# колличество человек
+
+leaveChat покинуть телеграмм ботом чат
+
+
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/getChatMember?chat_id=-765958396&user_id=1077814315
+# бот в группе, знает id пользователя, проверяю есть ли пользователь в группе
+
+https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/BotCommandScopeChat?chat_id=-765958396
+
+
+######################################################################################################################################################################
+1) пробую связать хероку приложение на рельсах и репозиторий гит, а так же использую базу пострегс
+https://parsertelegram.herokuapp.com/
+
+
+git clone https://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@github.com/wkfedor/parsert.git
+git@github.com:wkfedor/parsertelegram.git
+
+
+
+
+
