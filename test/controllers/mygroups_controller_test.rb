@@ -17,7 +17,7 @@ class MygroupsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create mygroup" do
     assert_difference("Mygroup.count") do
-      post mygroups_url, params: { mygroup: { countuser: @mygroup.countuser, datein: @mygroup.datein, description: @mygroup.description, id: @mygroup.id, iid: @mygroup.iid, title: @mygroup.title, username: @mygroup.username } }
+      post mygroups_url, params: { mygroup: { countuser: @mygroup.countuser, datein: @mygroup.datein, description: @mygroup.description, iid: @mygroup.iid, title: @mygroup.title, username: @mygroup.username } }
     end
 
     assert_redirected_to mygroup_url(Mygroup.last)
@@ -34,7 +34,7 @@ class MygroupsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update mygroup" do
-    patch mygroup_url(@mygroup), params: { mygroup: { countuser: @mygroup.countuser, datein: @mygroup.datein, description: @mygroup.description, id: @mygroup.id, iid: @mygroup.iid, title: @mygroup.title, username: @mygroup.username } }
+    patch mygroup_url(@mygroup), params: { mygroup: { countuser: @mygroup.countuser, datein: @mygroup.datein, description: @mygroup.description, iid: @mygroup.iid, title: @mygroup.title, username: @mygroup.username } }
     assert_redirected_to mygroup_url(@mygroup)
   end
 

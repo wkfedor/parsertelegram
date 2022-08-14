@@ -17,7 +17,6 @@ class MygroupsTest < ApplicationSystemTestCase
     fill_in "Countuser", with: @mygroup.countuser
     fill_in "Datein", with: @mygroup.datein
     fill_in "Description", with: @mygroup.description
-    fill_in "Id", with: @mygroup.id
     fill_in "Iid", with: @mygroup.iid
     fill_in "Title", with: @mygroup.title
     fill_in "Username", with: @mygroup.username
@@ -34,7 +33,6 @@ class MygroupsTest < ApplicationSystemTestCase
     fill_in "Countuser", with: @mygroup.countuser
     fill_in "Datein", with: @mygroup.datein
     fill_in "Description", with: @mygroup.description
-    fill_in "Id", with: @mygroup.id
     fill_in "Iid", with: @mygroup.iid
     fill_in "Title", with: @mygroup.title
     fill_in "Username", with: @mygroup.username
