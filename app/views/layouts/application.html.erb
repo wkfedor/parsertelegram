@@ -7,10 +7,57 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "bootstrap.min", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'bootstrap.bundle.min.js', 'data-turbolinks-track': 'reload' %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+  <header>
+
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Активная</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Выпадающий список</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Действие</a></li>
+          <li><a class="dropdown-item" href="#">Другое действие</a></li>
+          <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Отделенная ссылка</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Ссылка</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled">Отключенная</a>
+      </li>
+    </ul>
+
+  </header>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col"
+
+      <button type="button" class="btn btn-primary">Primary</button>
+      <button type="button" class="btn btn-secondary">Secondary</button>
+      <button type="button" class="btn btn-success">Success</button>
+      <button type="button" class="btn btn-danger">Danger</button>
+      <button type="button" class="btn btn-warning">Warning</button>
+      <button type="button" class="btn btn-info">Info</button>
+      <button type="button" class="btn btn-light">Light</button>
+      <button type="button" class="btn btn-dark">Dark</button>
+
+      <button type="button" class="btn btn-link">Link</button>
+
+      <%= yield %>
+    </div>
+  </div>
+  </div>
   </body>
 </html>
