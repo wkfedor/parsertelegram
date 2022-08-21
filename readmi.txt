@@ -58,7 +58,8 @@ https://api.telegram.org/bot5521468632:AAFVtw5adOTkKQH-kxfp7QwvD0m7lxipUFw/BotCo
 https://parsertelegram.herokuapp.com/
 
 
-git clone https://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@github.com/wkfedor/parsert.git
+git clone https://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@github.com/wkfedor/parsertelegram.git
+
 git@github.com:wkfedor/parsertelegram.git
 
 
