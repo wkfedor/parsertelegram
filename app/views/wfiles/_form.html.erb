@@ -1,0 +1,32 @@
+<%= form_with(model: wfile) do |form| %>
+  <% if wfile.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(wfile.errors.count, "error") %> prohibited this wfile from being saved:</h2>
+
+      <ul>
+        <% wfile.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :word, style: "display: block" %>
+    <%= form.text_field :word %>
+  </div>
+
+  <div>
+    <%= form.label :flag, style: "display: block" %>
+    <%= form.text_field :flag %>
+  </div>
+
+  <div>
+    <%= form.label :dateold, style: "display: block" %>
+    <%= form.datetime_field :dateold %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

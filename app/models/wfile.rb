@@ -1,0 +1,2 @@
+class Wfile < ApplicationRecord
+end

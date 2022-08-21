@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  word: MyString
+  flag: MyString
+  dateold: 2022-08-21 21:15:17
+
+two:
+  word: MyString
+  flag: MyString
+  dateold: 2022-08-21 21:15:17

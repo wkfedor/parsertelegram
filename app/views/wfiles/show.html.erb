@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @wfile %>
+
+<div>
+  <%= link_to "Edit this wfile", edit_wfile_path(@wfile) %> |
+  <%= link_to "Back to wfiles", wfiles_path %>
+
+  <%= button_to "Destroy this wfile", @wfile, method: :delete %>
+</div>
