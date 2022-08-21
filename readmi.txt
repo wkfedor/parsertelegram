@@ -62,7 +62,8 @@ git clone https://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@github.com/wkfedor/pa
 
 git@github.com:wkfedor/parsertelegram.git
 
+rails g scaffold wfile word:string flag:string dateold:datetime
 
-
+rails g model wfile word:string flag:string dateold:datetime
 
 
