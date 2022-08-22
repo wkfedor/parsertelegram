@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Loadfiles</h1>
+
+<div id="loadfiles">
+  <% @loadfiles.each do |loadfile| %>
+    <%= render loadfile %>
+    <p>
+      <%= link_to "Show this loadfile", loadfile %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New loadfile", new_loadfile_path %>

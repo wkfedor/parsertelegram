@@ -1,0 +1,2 @@
+class Loadfile < ApplicationRecord
+end

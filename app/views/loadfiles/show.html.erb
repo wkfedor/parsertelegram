@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @loadfile %>
+
+<div>
+  <%= link_to "Edit this loadfile", edit_loadfile_path(@loadfile) %> |
+  <%= link_to "Back to loadfiles", loadfiles_path %>
+
+  <%= button_to "Destroy this loadfile", @loadfile, method: :delete %>
+</div>

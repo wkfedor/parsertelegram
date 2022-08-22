@@ -1,0 +1,27 @@
+<%= form_with(model: loadfile) do |form| %>
+  <% if loadfile.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(loadfile.errors.count, "error") %> prohibited this loadfile from being saved:</h2>
+
+      <ul>
+        <% loadfile.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :lfilename, style: "display: block" %>
+    <%= form.text_field :lfilename %>
+  </div>
+
+  <div>
+    <%= form.label :comment, style: "display: block" %>
+    <%= form.text_field :comment %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
