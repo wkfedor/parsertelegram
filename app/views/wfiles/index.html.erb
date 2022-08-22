@@ -2,16 +2,6 @@
 
 <h1>Wfiles</h1>
 
-
-
-test=<%=@test %>
-  <%= form_with url: "/wfile/savefile",multipart: true,method: :post , data: { controller: "wfile" }, format: :turbo_stream  do |form| %>
-
-  <label for="file">Upload text File</label> <%= file_field_tag "mfile" %>
-  <%= submit_tag %>
-<% end %>
-
-
 <div id="wfiles">
   <% @wfiles.each do |wfile| %>
     <%= render wfile %>

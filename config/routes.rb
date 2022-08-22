@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  post 'wfile/savefile'=>'wfiles#index'
+
   resources :wfiles
   resources :mygroups
   root 'mygroups#index'

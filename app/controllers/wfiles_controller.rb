@@ -84,7 +84,7 @@ class WfilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wfile_params
-      params.require(:wfile).permit(:word, :flag, :dateold)
+      params.require(:wfile).permit(:word, :flag, :dateold ,:myfile)
     end
   def wfile_params_file
     params.require(:wfile).permit(:mfile)
