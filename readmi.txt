@@ -71,10 +71,24 @@ rails g scaffold loadfile lfilename:string comment:string
 
 
 23.08.2021   создаем контроллер для работы с загружаемым файлом
-удалить лоудер
-создать миграцию на удаление поля
-созадать лоудер с новым именем
-убрать из loadfiles поле Lfilename сделать его загрузка файла
-проверить работу пунктов меню сборщик=>1. в одном с файлом новым во втором без файла
-связать 2 таблицы через id добавив в wfiles поле для связи с loadfiles
++не могу запушить изменения, создал новый токен и запушил через консоль
+git push https://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@github.com/wkfedor/parsertelegram.git
+
++удалить лоудер
+rails destroy uploader Myfile
+
+
++создать миграцию на удаление поля
+rails generate migration RemoveFieldNameFromTableName field_name:datatype
+rails generate migration RemoveMyfileFromWfiles myfile:string
+
+
+
++созадать лоудер с новым именем
+rails generate uploader Lfilename
+
+
++убрать из loadfiles поле Lfilename сделать его загрузка файла
++проверить работу пунктов меню сборщик=>1. в одном с файлом новым во втором без файла
+-связать 2 таблицы через id добавив в wfiles поле для связи с loadfiles
 

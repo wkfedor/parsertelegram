@@ -1,7 +1,11 @@
 <div id="<%= dom_id loadfile %>">
   <p>
-    <strong>Lfilename:</strong>
+    <strong>Адрес файл</strong>
+    <br/>
     <%= loadfile.lfilename %>
+    <br/>
+    <strong>Содержимое файла</strong>
+    <%=  loadfile.lfilename.read%>
   </p>
 
   <p>
