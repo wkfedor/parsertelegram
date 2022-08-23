@@ -4,6 +4,9 @@ class LoadfilesController < ApplicationController
   # GET /loadfiles or /loadfiles.json
   def index
     @loadfiles = Loadfile.all
+
+    @myreg=@loadfiles.first.lfilename.read.to_s.force_encoding("UTF-8").scan(/@[a-z1-9]*/).uniq - ["@","@id"]
+
   end
 
   # GET /loadfiles/1 or /loadfiles/1.json
