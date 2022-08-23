@@ -70,3 +70,11 @@ rails g model wfile word:string flag:string dateold:datetime
 rails g scaffold loadfile lfilename:string comment:string
 
 
+23.08.2021   создаем контроллер для работы с загружаемым файлом
+удалить лоудер
+создать миграцию на удаление поля
+созадать лоудер с новым именем
+убрать из loadfiles поле Lfilename сделать его загрузка файла
+проверить работу пунктов меню сборщик=>1. в одном с файлом новым во втором без файла
+связать 2 таблицы через id добавив в wfiles поле для связи с loadfiles
+
