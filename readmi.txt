@@ -93,3 +93,9 @@ rails generate uploader Lfilename
 -связать 2 таблицы через id добавив в wfiles поле для связи с loadfiles
 +создать файл для парсинга с списоком групп.
 -
+
+24 августа
+
+rails generate migration AddFileidToWfiles fileid:integer
+rails generate migration AddDetailsToTemporaries sa:text sb:text sc:text sd:text se:text
+rake db:migrate
