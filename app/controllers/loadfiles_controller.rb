@@ -4,12 +4,26 @@ class LoadfilesController < ApplicationController
   # GET /loadfiles or /loadfiles.json
   def index
     @loadfiles = Loadfile.all
+    #render plain: @loadfiles.length
+    #return
 
-    @myreg=@loadfiles.first.lfilename.read.to_s.force_encoding("UTF-8").scan(/@[a-z1-9]*/).uniq - ["@","@id"]
   end
 
   # GET /loadfiles/1 or /loadfiles/1.json
   def show
+
+    @myreg=@loadfile.lfilename.read.to_s.force_encoding("UTF-8").scan(/@[a-z1-9]*/).uniq - ["@","@id"]
+    #получаем список групп из сохранного на сервер файла
+
+    #-проверяем есть ли запись о моей группе в базе
+
+    #-если нет то записываем в базу
+
+    #-выдаем статитстику, в файле 100 групп все 100 в базе||в файле 100 групп 20 в базе||в файле нет групп
+
+    #render plain: params[:id]
+    #return
+
   end
 
   # GET /loadfiles/new
