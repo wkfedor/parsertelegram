@@ -15,9 +15,20 @@ class LoadfilesController < ApplicationController
     @myreg=@loadfile.lfilename.read.to_s.force_encoding("UTF-8").scan(/@[a-z1-9]*/).uniq - ["@","@id"]
     #получаем список групп из сохранного на сервер файла
 
-    #-проверяем есть ли запись о моей группе в базе
-    #-создаем миграцию поле id_file для связи с файлом
+
+    #+создаем миграцию поле id_file для связи с файлом
     @myreg.each do |x|
+
+      if Wfile.find_by_word(x).nil?
+        #-проверяем есть ли запись о моей группе в базе
+        #
+        time=Time.now
+        @Wf=Wfile.new('word'=>x, 'flag'=>1, 'dateold'=>time, 'created_at'=>time, 'updated_at'=>time, 'fileid'=>params[:id])
+        @Wf.save
+      end
+      #render plain: Wfile.find_by_word(x.to_s)
+      #return
+
 
     end
     #-если нет то записываем в базу
