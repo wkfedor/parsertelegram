@@ -23,7 +23,6 @@ class LoadfilesController < ApplicationController
 
     #render plain: params[:id]
     #return
-
   end
 
   # GET /loadfiles/new
