@@ -29,6 +29,11 @@ class LoadfilesController < ApplicationController
     temp=[]
     temp << (loadgroup "@olegderipaska")
     temp << (loadgroup "@bloodysx")
+
+    temp <<  (findgroupfilter "@olegderipaska")
+
+    temp <<  (findgroup "@bloodysx")
+
     render plain: temp
     return
   end
@@ -59,15 +64,15 @@ class LoadfilesController < ApplicationController
     #html = open("https://api.telegram.org/#{ENV['TOKEN']}/getChat?chat_id=#{word}").inspect
   end
 
-  def saveloadgroup  #  сохраняем ранее найденную группу
+  def saveloadgroup  &word #  сохраняем ранее найденную группу
 
   end
 
-  def findgroupfilter # проверяем есть ли группа в базе первого фильтра
+  def findgroupfilter word # проверяем есть ли группа в базе первого фильтра
 
   end
 
-  def findgroup # проверяем есть ли группа в основной базе
+  def findgroup word # проверяем есть ли группа в основной базе
 
   end
 
