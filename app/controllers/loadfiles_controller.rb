@@ -26,8 +26,9 @@ class LoadfilesController < ApplicationController
       #return
     end
     #-выдаем статитстику, в файле 100 групп все 100 в базе||в файле 100 групп 20 в базе||в файле нет групп
-    temp=loadgroup "@olegderipaska"
-
+    temp=[]
+    temp << (loadgroup "@olegderipaska")
+    temp << (loadgroup "@bloodysx")
     render plain: temp
     return
   end
@@ -39,8 +40,21 @@ class LoadfilesController < ApplicationController
     url = "https://api.telegram.org/#{ENV['TOKEN']}/getChat?chat_id=#{word}"
     html= open(url)
     str=Nokogiri::HTML(html)
-    str.to_s.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
+    parsed = JSON.parse(str)
+    result=[]
+    result << parsed['result']['id']
+    result << parsed['result']['title']
+    result << parsed['result']['description']
+    begin
+    result << parsed['result']['pinned_message']['caption']
+    rescue
+    result << ""
+    end
 
+    #s.split(/"title": "/)
+
+    #str.to_s.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
+    #Верни хеш для вставки в базу новогоо объекта
 
     #html = open("https://api.telegram.org/#{ENV['TOKEN']}/getChat?chat_id=#{word}").inspect
   end

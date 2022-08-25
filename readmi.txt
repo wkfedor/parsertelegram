@@ -99,3 +99,7 @@ rails generate uploader Lfilename
 rails generate migration AddFileidToWfiles fileid:integer
 rails generate migration AddDetailsToTemporaries sa:text sb:text sc:text sd:text se:text
 rake db:migrate
+
+
+25 августа
+rails generate migration AddCaptionToMygroups caption:string
