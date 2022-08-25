@@ -11,32 +11,50 @@ class LoadfilesController < ApplicationController
 
   # GET /loadfiles/1 or /loadfiles/1.json
   def show
-
     @myreg=@loadfile.lfilename.read.to_s.force_encoding("UTF-8").scan(/@[a-z1-9]*/).uniq - ["@","@id"]
     #получаем список групп из сохранного на сервер файла
-
-
     #+создаем миграцию поле id_file для связи с файлом
     @myreg.each do |x|
-
       if Wfile.find_by_word(x).nil?
-        #-проверяем есть ли запись о моей группе в базе
-        #
+        #+проверяем есть ли запись о моей группе в базе
+        #+если нет то записываем в базу
         time=Time.now
         @Wf=Wfile.new('word'=>x, 'flag'=>1, 'dateold'=>time, 'created_at'=>time, 'updated_at'=>time, 'fileid'=>params[:id])
         @Wf.save
       end
       #render plain: Wfile.find_by_word(x.to_s)
       #return
-
-
     end
-    #-если нет то записываем в базу
-
     #-выдаем статитстику, в файле 100 групп все 100 в базе||в файле 100 групп 20 в базе||в файле нет групп
+    temp=loadgroup "@olegderipaska"
 
-    #render plain: params[:id]
-    #return
+    render plain: temp
+    return
+  end
+
+  def loadgroup word   # через апи проверяем есть ли группе
+    require 'open-uri'
+    require 'nokogiri'
+
+    url = "https://api.telegram.org/#{ENV['TOKEN']}/getChat?chat_id=#{word}"
+    html= open(url)
+    str=Nokogiri::HTML(html)
+    str.to_s.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
+
+
+    #html = open("https://api.telegram.org/#{ENV['TOKEN']}/getChat?chat_id=#{word}").inspect
+  end
+
+  def saveloadgroup  #  сохраняем ранее найденную группу
+
+  end
+
+  def findgroupfilter # проверяем есть ли группа в базе первого фильтра
+
+  end
+
+  def findgroup # проверяем есть ли группа в основной базе
+
   end
 
   # GET /loadfiles/new
