@@ -39,58 +39,46 @@ class LoadfilesController < ApplicationController
     #temp << (loadgroup "@bloodysx")
 
     #temp <<  (findgroupfilter "@olegderipaska")
-    test="@egorkreed"
-
-
-
-
-
-
-
+    #test="@egorkreed"
   end
 
   def loadgroup word   # через апи проверяем есть ли группе
     require 'open-uri'
     require 'nokogiri'
-
-    p url = "https://api.telegram.org/#{ENV['TOKEN']}/getChat?chat_id=#{word}"
-    begin
-      html= open(url)
-    rescue
-      # p open(url).inspect
-      @msql=Wfile.find_by_word(word)
-      @msql.update('flag'=>3)
-      return  "Группы с именем #{word} нет!!!!"
-    end
-
-
-    str=Nokogiri::HTML(html)
-    parsed = JSON.parse(str)
-
-
-
-
-    result={}
-    time=Time.now
-    result.store("iid", parsed['result']['id'])
-    result.store("username", word)
-    result.store("title", parsed.dig('result', 'title'))
-    result.store("description", parsed.dig('result', 'description'))
-    result.store("caption", parsed.dig('result', 'pinned_message', 'caption'))
-    result.store("datein", time)
-    #render plain: result
-    #return
-
+    require "net/https"
+    require 'uri'
+    sleep 1
+    myurl = "https://api.telegram.org/#{ENV['TOKEN']}/getChat?chat_id=#{word}"
+    p "myurl=#{myurl}"
+    uri = URI.parse(myurl)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    content=response.body
     @msql=Wfile.find_by_word(word)
-    saveloadgroup result
-    @msql.update('flag'=>2)   # после сохранения в основную базу изменяю флаг в базе поиска по файлу
-
-    #s.split(/"title": "/)
-
-    #str.to_s.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
-    #Верни хеш для вставки в базу новогоо объекта
-
-    #html = open("https://api.telegram.org/#{ENV['TOKEN']}/getChat?chat_id=#{word}").inspect
+    p "code=#{response.code}"
+    if response.code == '200'
+      result={}
+      time=Time.now
+      parsed = JSON.parse(content)
+      result.store("iid", parsed.dig('result', 'id'))
+      result.store("username", word)
+      result.store("title", parsed.dig('result', 'title'))
+      result.store("description", parsed.dig('result', 'description'))
+      result.store("caption", parsed.dig('result', 'pinned_message', 'caption'))
+      result.store("datein", time)
+      saveloadgroup result
+      @msql.update('flag'=>200)   # после сохранения в основную базу изменяю флаг в базе поиска по файлу
+    elsif response.code == '400'
+      @msql.update('flag'=>400)
+    else
+      @msql.update('flag'=>response.code)
+    end
+    # статус 1 загнужено во временную
+    # 2 отработали норм
+    # 4 400 ошибка, группы нет
   end
 
   def saveloadgroup  word #  сохраняем ранее найденную группу
