@@ -15,13 +15,20 @@ class LoadfilesController < ApplicationController
     #получаем список групп из сохранного на сервер файла
     #+создаем миграцию поле id_file для связи с файлом
     @myreg.each do |x|
+
+      #render plain: Wfile.find_by_word(x)
+      #return
+      time=Time.now
       if Wfile.find_by_word(x).nil?
         #+проверяем есть ли запись о моей группе в базе
         #+если нет то записываем в базу
-        time=Time.now
         @Wf=Wfile.new('word'=>x, 'flag'=>1, 'dateold'=>time, 'created_at'=>time, 'updated_at'=>time, 'fileid'=>params[:id])
         @Wf.save
         p  loadgroup(x)  if findgroup(x)  #&& findgroupfilter(x)
+      else
+        if Wfile.find_by_word(x).flag.to_s=='1'
+        p  loadgroup(x)  if findgroup(x)  #&& findgroupfilter(x)
+        end
       end
       #render plain: Wfile.find_by_word(x.to_s)
       #return
@@ -50,6 +57,9 @@ class LoadfilesController < ApplicationController
     begin
       html= open(url)
     rescue
+      # p open(url).inspect
+      @msql=Wfile.find_by_word(word)
+      @msql.update('flag'=>3)
       return  "Группы с именем #{word} нет!!!!"
     end
 
@@ -70,8 +80,10 @@ class LoadfilesController < ApplicationController
     result.store("datein", time)
     #render plain: result
     #return
-    saveloadgroup result
 
+    @msql=Wfile.find_by_word(word)
+    saveloadgroup result
+    @msql.update('flag'=>2)   # после сохранения в основную базу изменяю флаг в базе поиска по файлу
 
     #s.split(/"title": "/)
 
