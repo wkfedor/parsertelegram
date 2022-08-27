@@ -1,7 +1,53 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+Loadfile.create!([
+  {lfilename: "Блоги_журналистов___Подборка_Telegram-каналов_и_чатов___TGStat.html", comment: "первая загрузка"}
+])
+Wfile.create!([
+  {word: "@seen", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@wrapped", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@context", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@nr", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@original", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@bloodysx", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@ostorozhno", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@nevzorovtv", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@yurydud", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@redakciya", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@sashakots", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@margaritasimonyan", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@tikandelaki", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@krasovkin", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@skabeeva", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@dr", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@politmanagertg", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@minaevlife", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@aidazinaida", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@kornilov1968", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@annashafran", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@pozneronline", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@kashinguru", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@kashinplus", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@mariabutina", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@shevchenkomax", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@kolezev", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@tdzyadko", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@tanya", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@tfrepbot", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@akashevarova", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@vladivostok1978", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@robabayan", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@smirnovmz", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@kononenkome", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@pridybaylo", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@parfenon", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@alexandr", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@trofimovonline", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@burrowingowl", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@dmitri", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@vyshinkv", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@hotstazh", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@kopeek29", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@gmail", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@telepulse", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@tgstat", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1},
+  {word: "@tg", flag: "1", dateold: "2022-08-24 18:45:41", fileid: 1}
+])
