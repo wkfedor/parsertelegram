@@ -11,12 +11,11 @@ class LoadfilesController < ApplicationController
 
   # GET /loadfiles/1 or /loadfiles/1.json
   def show
+    #if @filename==nil
+    #render plain:  @model.inspect
+    # return
+      #end
 
-    # if @loadfile.lfilename.nil?
-    # @wfile = Wfile.find(params[:id])
-    #  render plain:  Loadfile.find(params[:id]).lfilename
-    #s  return
-    #end
     @myreg=@loadfile.lfilename.read.to_s.force_encoding("UTF-8").scan(/@[a-z1-9]*/).uniq - ["@","@id"]
     #получаем список групп из сохранного на сервер файла
     #+создаем миграцию поле id_file для связи с файлом
