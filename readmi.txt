@@ -108,3 +108,4 @@ rails generate migration AddCaptionToMygroups caption:string
 28 августа
 rake db:migrate db:seed # импортировать данные из seed
 rake db:seed:dump # создать дамп
+rake db:truncate_all # удалить все базы
