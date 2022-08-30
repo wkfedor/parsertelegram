@@ -5,7 +5,7 @@
     <%= loadfile.lfilename %>
     <br/>
     <strong>Содержимое файла</strong>
-    <%=  loadfile.lfilename%>
+    <%=  loadfile['lfilename'].nil? ? "Ошибка загрузки файла":loadfile['lfilename'] %>
 
 
   </p>
@@ -18,7 +18,7 @@
 
   <p>
     <strong>Группы:</strong>
-    <%= @myreg %>
+    <%= @myreg.nil? ? "Ошибка загрузки файла" : @myreg %>
   </p>
 
 </div>

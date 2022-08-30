@@ -4,6 +4,7 @@ class LoadfilesController < ApplicationController
   # GET /loadfiles or /loadfiles.json
   def index
     @loadfiles = Loadfile.all
+    @myreg='todo'
     #render plain: @loadfiles.length
     #return
 
