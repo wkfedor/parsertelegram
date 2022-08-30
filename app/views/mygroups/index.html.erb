@@ -3,6 +3,7 @@
 <h1>Mygroups</h1>
 
 <div id="mygroups">
+  <%= will_paginate @mygroups %>
   <% @mygroups.each do |mygroup| %>
     <%= render mygroup %>
     <p>

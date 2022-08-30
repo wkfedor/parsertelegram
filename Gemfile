@@ -50,6 +50,8 @@ gem 'carrierwave',"~> 1.0"
 gem 'io-console',"~> 0.5.11"
 gem 'dotenv-rails'
 gem 'seed_dump'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 group :development, :test do
