@@ -4,7 +4,7 @@ class MygroupsController < ApplicationController
   # GET /mygroups or /mygroups.json
   def index
     #@mygroups = Mygroup.all
-    @mygroups = Mygroup.paginate(page: params[:page])
+    @mygroups = Mygroup.paginate(page: params[:page], per_page: 50)
   end
 
   # GET /mygroups/1 or /mygroups/1.json

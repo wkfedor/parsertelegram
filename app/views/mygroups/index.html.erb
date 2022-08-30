@@ -1,15 +1,30 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Mygroups</h1>
+<h1>Группы телеграмм</h1>
 
 <div id="mygroups">
   <%= will_paginate @mygroups %>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">имя группы</th>
+      <th scope="col">заголовок</th>
+      <th scope="col">описание</th>
+      <th scope="col">описание 2</th>
+      <th scope="col">дата</th>
+      <th scope="col">открыть</th>
+    </tr>
+    </thead>
+    <tbody>
   <% @mygroups.each do |mygroup| %>
-    <%= render mygroup %>
-    <p>
-      <%= link_to "Show this mygroup", mygroup %>
-    </p>
+      <tr>
+        <%= render mygroup %>
+        <td> <%= link_to "Show this mygroup", mygroup %></td>
+      </tr>
   <% end %>
+    </tbody>
+  </table>
 </div>
-
 <%= link_to "New mygroup", new_mygroup_path %>
+<%= will_paginate @mygroups %>

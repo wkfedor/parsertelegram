@@ -79,6 +79,9 @@ class LoadfilesController < ApplicationController
       @msql.update('flag'=>200)   # после сохранения в основную базу изменяю флаг в базе поиска по файлу
     elsif response.code == '400'
       @msql.update('flag'=>400)
+    elsif response.code == '429'
+      @msql.update('flag'=>429)
+      abort "Телеграмм нас забанил"
     else
       @msql.update('flag'=>response.code)
     end
