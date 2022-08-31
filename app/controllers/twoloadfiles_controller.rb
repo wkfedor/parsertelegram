@@ -8,14 +8,21 @@ class TwoloadfilesController < ApplicationController
 
   # GET /twoloadfiles/1 or /twoloadfiles/1.json
   def show
-    #require "/home/fnachatoy/telegram/parsertelegram/app/controllers/myworks_controller.rb"
-    #p MyWorks.primer
+    # +разбить по регулярке, получаю файл выдаю массив
+    # проверить есть ли в основной базе              должно быть false
+    # проверить есть ли в базе проверки с файлами     должно быть false
+    # записать в базу
      require 'mywork'
-    p Mywork.myreq(@twoloadfile.lfilename.read.to_s.force_encoding("UTF-8"))
+     Mywork.myreq(@twoloadfile.lfilename.read.to_s.force_encoding("UTF-8")).each do |x|
+
+     savedata(x) if Mywork.findgroupfilter(x) && Mywork.findgroup(x)
+
+
+
     #p  TwoloadfilesController::Myworks
     #mydata.myreg
+     end
   end
-
   # GET /twoloadfiles/new
   def new
     @twoloadfile = Twoloadfile.new
@@ -65,13 +72,11 @@ class TwoloadfilesController < ApplicationController
   end
 
   def savedata data
-    # разбить по регулярке, получаю файл выдаю массив
-    # проверить есть ли в основной базе              должно быть false
-    # проверить есть ли в базе проверки с файлами     должно быть false
-    # записать в базу
-
-
+      time=Time.now
+      @Wf=Wfile.new('word'=>data, 'flag'=>1, 'dateold'=>time, 'created_at'=>time, 'updated_at'=>time, 'fileid'=>params[:id])
+      @Wf.save
   end
+
 
 
   private
