@@ -1,9 +1,12 @@
 class WfilesController < ApplicationController
   before_action :set_wfile, only: %i[ show edit update destroy ]
 
+
+
   # GET /wfiles or /wfiles.json
   def index
-    @wfiles = Wfile.all
+    @wfiles = Wfile.search(params).paginate(page: params[:page], per_page: 50)
+    #@wfiles = Wfile.all
 
     begin
 

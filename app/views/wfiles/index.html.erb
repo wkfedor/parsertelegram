@@ -1,15 +1,34 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>1 способ результат</h1>
+<h1>1 способ группы в промежуточной таблице</h1>
 <strong>Список групп найденых способом прогона по файлу.</strong>
 <br/>
-<div id="wfiles">
-  <% @wfiles.each do |wfile| %>
-    <%= render wfile %>
-    <p>
-      <%= link_to "Show this wfile", wfile %>
-    </p>
-  <% end %>
-</div>
 
+<div id="wfiles">
+  <%= will_paginate @wfiles %>
+  <%= form_tag wfiles_path, method: :get do %>
+    <%= text_field_tag :search, params[:search] ||="" %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Имя</th>
+      <th scope="col">Флаг</th>
+      <th scope="col">Дата</th>
+      <th scope="col">открыть</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <% @wfiles.each do |wfile| %>
+      <tr>
+        <%= render wfile %>
+        <td> <%= link_to "Show this wfile", wfile %> </td>
+      </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+</div>
 <%= link_to "New wfile", new_wfile_path %>
