@@ -119,3 +119,8 @@ https://t.me/LearnRubyForPikabu/150  через веб морду могу по�
 Работоспособность бота
 Поиск пользователей по username 🔎
 До 200 username’ов ежедневно.
+
+31 августа
+rails g scaffold twoloadfile lfilename:string comment:string
+rails generate uploader Lfile  # второй uploader с другим именем отличным от поля в базе для нормальной работы загрузки данных из seeds
+mount_uploader :lfilename, LfileUploader   # в моделе

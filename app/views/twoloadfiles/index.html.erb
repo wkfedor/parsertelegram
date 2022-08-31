@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Twoloadfiles</h1>
+
+<div id="twoloadfiles">
+  <% @twoloadfiles.each do |twoloadfile| %>
+    <%= render twoloadfile %>
+    <p>
+      <%= link_to "Show this twoloadfile", twoloadfile %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New twoloadfile", new_twoloadfile_path %>
