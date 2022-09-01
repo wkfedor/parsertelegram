@@ -5,10 +5,10 @@ class TwoloadfilesController < ApplicationController
   def index
     @twoloadfiles = Twoloadfile.all
   end
+
   def workdbpage   # метод стрницы запуска прогона по временной базе статусов 1, 429
-    10.times do |x|
-      @my=x
-      #sleep 1
+    Wfile.where("flag in ('1','429')").each do |x|
+      p x.word
     end
   end
 
@@ -16,6 +16,8 @@ class TwoloadfilesController < ApplicationController
     mas= %w{1 2 3 4 5 6 7 8 9}
     render json:{success: mas.sample.to_s }
   end
+
+
 
 
   # GET /twoloadfiles/1 or /twoloadfiles/1.json
