@@ -94,8 +94,6 @@ class TwoloadfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_twoloadfile
-      p "!!!!#{params[:id].nil?}!!!"
-
     begin
       @twoloadfile = Twoloadfile.find(params[:id])
     rescue
