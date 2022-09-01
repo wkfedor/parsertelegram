@@ -6,7 +6,15 @@ class TwoloadfilesController < ApplicationController
     @twoloadfiles = Twoloadfile.all
   end
   def workdbpage   # метод стрницы запуска прогона по временной базе статусов 1, 429
+    10.times do |x|
+      @my=x
+      #sleep 1
+    end
+  end
 
+  def onlinestatupdatedb
+    mas= %w{1 2 3 4 5 6 7 8 9}
+    render json:{success: mas.sample.to_s }
   end
 
 

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get 'workdbpage', to: 'twoloadfiles#workdbpage'
+  post 'onlinestatupdatedb', to: 'twoloadfiles#onlinestatupdatedb'
+  get 'onlinestatupdatedb', to: 'twoloadfiles#onlinestatupdatedb'
+
   resources :twoloadfiles
   resources :loadfiles
 

@@ -2,5 +2,15 @@
 
 <%= form_tag workdbpage_path, method: :get do %>
 
-  <%= submit_tag   'Запустить проверку групп', name:"workdbpagesend" %>
+  <span id="startAction">Запустить проверку групп</span>
 <% end %>
+
+
+
+<%= turbo_frame_tag "my_counter" do %>
+  <span class="text-subtitle">counter:<%= @my %></span>
+<% end %>
+
+значение <span id="dialog_title_span">mydata</span>
+<br/>
+таймер <span id="dialog_title_span2">mydata</span>
