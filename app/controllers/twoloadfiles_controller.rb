@@ -1,10 +1,14 @@
 class TwoloadfilesController < ApplicationController
-  before_action :set_twoloadfile, only: %i[ show edit update destroy ]
+  before_action :set_twoloadfile, only: %i[ show edit update destroy workdbpage ]
 
   # GET /twoloadfiles or /twoloadfiles.json
   def index
     @twoloadfiles = Twoloadfile.all
   end
+  def workdbpage   # метод стрницы запуска прогона по временной базе статусов 1, 429
+
+  end
+
 
   # GET /twoloadfiles/1 or /twoloadfiles/1.json
   def show
@@ -82,7 +86,13 @@ class TwoloadfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_twoloadfile
+      p "!!!!#{params[:id].nil?}!!!"
+
+    begin
       @twoloadfile = Twoloadfile.find(params[:id])
+    rescue
+      @twoloadfile=''
+    end
     end
 
     # Only allow a list of trusted parameters through.

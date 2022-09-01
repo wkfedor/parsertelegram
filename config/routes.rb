@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'workdbpage', to: 'twoloadfiles#workdbpage'
   resources :twoloadfiles
   resources :loadfiles
 
