@@ -1,14 +1,17 @@
 class TwoloadfilesController < ApplicationController
   before_action :set_twoloadfile, only: %i[ show edit update destroy workdbpage ]
-
+  require 'mywork'
   # GET /twoloadfiles or /twoloadfiles.json
   def index
     @twoloadfiles = Twoloadfile.all
   end
 
   def workdbpage   # метод стрницы запуска прогона по временной базе статусов 1, 429
-    Wfile.where("flag in ('1','429')").each do |x|
-      p x.word
+    Wfile.where("flag in ('1','429')").limit(2).each do |x|
+      #p x.word
+      # проверить есть ли имя в основной базе групп.
+       Mywork.mygropdata(x.word)
+      sleep 1
     end
   end
 
@@ -26,7 +29,7 @@ class TwoloadfilesController < ApplicationController
     # проверить есть ли в основной базе              должно быть false
     # проверить есть ли в базе проверки с файлами     должно быть false
     # записать в базу
-     require 'mywork'
+    #require 'mywork'
      Mywork.myreq(@twoloadfile.lfilename.read.to_s.force_encoding("UTF-8")).each do |x|
 
      savedata(x) if Mywork.findgroupfilter(x) && Mywork.findgroup(x)
