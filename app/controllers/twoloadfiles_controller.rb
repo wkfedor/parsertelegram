@@ -12,8 +12,29 @@ class TwoloadfilesController < ApplicationController
       # проверить есть ли имя в основной базе групп.
       if Mywork.findgroup(x.word) == true
         t=Mywork.mygropdata(x.word)
-        puts t
-        sleep 1
+
+        #вернул что группы нет
+        #{}"If you have Telegram, you can contact #{x} right away"
+         p t['description']
+         p "\"\\n  If you have Telegram, you can contact #{x.word} right away.\\n\""
+        if t['description'] == "\"\\n  If you have Telegram, you can contact #{x.word} right away.\\n\""
+        #группа есть записываем ее в базу
+         puts "401"
+         x.update('flag'=>401)
+         sleep 1
+       else
+          puts "201"
+          x.update('flag'=>201)
+          result={}
+          time=Time.now
+          result.store("username", x.word)
+          result.store("title", t['title'])
+          result.store("description", t['description'])
+          result.store("datein", time)
+          @mygroup = Mygroup.new(result)
+          p @mygroup.save
+        end
+
 
         #группы нет
         # 2 другие поля пустые "extra"=>"\"\"", "title"=>"\"\""
