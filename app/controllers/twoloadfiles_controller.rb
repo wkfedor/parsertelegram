@@ -14,6 +14,13 @@ class TwoloadfilesController < ApplicationController
         t=Mywork.mygropdata(x.word)
         puts t
         sleep 1
+
+        #группы нет
+        # 2 другие поля пустые "extra"=>"\"\"", "title"=>"\"\""
+        #tgme_page_description
+        #"If you have Telegram, you can contact @maksimborealis232323 right away"
+
+
       end
       #
       #
