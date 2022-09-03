@@ -7,11 +7,17 @@ class TwoloadfilesController < ApplicationController
   end
 
   def workdbpage   # метод стрницы запуска прогона по временной базе статусов 1, 429
-    Wfile.where("flag in ('1','429')").limit(2).each do |x|
+    Wfile.where("flag in ('1','429')").order("id DESC").limit(2).each do |x|
       #p x.word
       # проверить есть ли имя в основной базе групп.
-       Mywork.mygropdata(x.word)
-      sleep 1
+      if Mywork.findgroup(x.word) == true
+        t=Mywork.mygropdata(x.word)
+        puts t
+        sleep 1
+      end
+      #
+      #
+
     end
   end
 

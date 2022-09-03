@@ -16,7 +16,7 @@ class Mywork < ApplicationController
   end
 
   def self.mygropdata word # отправляю имя группы полуаю данные о ней
-    p myurl = "https://t.me/#{word.delete "@" }"
+     myurl = "https://t.me/#{word.delete "@" }"
      uri = URI.parse(myurl)
      http = Net::HTTP.new(uri.host, uri.port)
      http.use_ssl = true
@@ -25,28 +25,14 @@ class Mywork < ApplicationController
      response = http.request(request)
      content=response.body
      #"code=#{response.code}"
-      @t={}
+      t={}
      if response.code == '200'
         doc = Nokogiri::HTML(content)
-        p  doc.xpath(".//*[@class='tgme_page_description']//text()").first
+        t['url'] = myurl
+        t['description'] = doc.xpath(".//*[@class='tgme_page_description']//text()").text.inspect  #описание
+        t['extra'] = doc.xpath(".//*[@class='tgme_page_extra']//text()").text.inspect         #чел
+        t['title'] = doc.xpath(".//*[@class='tgme_page_title']//text()").text.inspect        #title
+        return t
      end
-=begin
-    myurl = "https://api.telegram.org/#{ENV['TOKEN']}/getChat?chat_id=#{word}"
-    p "myurl=#{myurl}"
-    uri = URI.parse(myurl)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    request = Net::HTTP::Get.new(uri.request_uri)
-    response = http.request(request)
-    content=response.body
-    @msql=Wfile.find_by_word(word)
-    p "code=#{response.code}"
-    if response.code == '200'
-=end
-
-
   end
-
-
 end
