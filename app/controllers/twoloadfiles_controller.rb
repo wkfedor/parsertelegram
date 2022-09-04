@@ -6,18 +6,21 @@ class TwoloadfilesController < ApplicationController
     @twoloadfiles = Twoloadfile.all
   end
 
+
+
   def workdbpage   # метод стрницы запуска прогона по временной базе статусов 1, 429
     Wfile.where("flag in ('1','429')").order("id DESC").limit(2).each do |x|
-      #p x.word
+      p "13 str= #{x.word}"
       # проверить есть ли имя в основной базе групп.
       if Mywork.findgroup(x.word) == true
         t=Mywork.mygropdata(x.word)
-
         #вернул что группы нет
         #{}"If you have Telegram, you can contact #{x} right away"
-         p t['description']
-         p "\"\\n  If you have Telegram, you can contact #{x.word} right away.\\n\""
-        if t['description'] == "\"\\n  If you have Telegram, you can contact #{x.word} right away.\\n\""
+         p t.inspect
+
+         return '' if t['error']=='error'
+         p "\n  If you have Telegram, you can contact #{x.word} right away.\n"
+        if t['description'].include? "If you have Telegram, you can contact #{x.word} right away."
         #группа есть записываем ее в базу
          puts "401"
          x.update('flag'=>401)
@@ -28,11 +31,22 @@ class TwoloadfilesController < ApplicationController
           result={}
           time=Time.now
           result.store("username", x.word)
+
+          #pattern = /!|’|"|\\/
+          t['title'].delete!("\n")
+          t['description'].delete!("\n")
+          #t['title'] = t['title'].gsub(pattern,"")
+          #t['title'].strip!
+
           result.store("title", t['title'])
           result.store("description", t['description'])
           result.store("datein", time)
+          #p t['description']
+          #p t['title']
+          p result
+          p "------------------------------------------------------"
           @mygroup = Mygroup.new(result)
-          p @mygroup.save
+          @mygroup.save
         end
 
 

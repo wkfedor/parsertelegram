@@ -29,10 +29,21 @@ class Mywork < ApplicationController
      if response.code == '200'
         doc = Nokogiri::HTML(content)
         t['url'] = myurl
-        t['description'] = doc.xpath(".//*[@class='tgme_page_description']//text()").text.inspect  #описание
-        t['extra'] = doc.xpath(".//*[@class='tgme_page_extra']//text()").text.inspect         #чел
-        t['title'] = doc.xpath(".//*[@class='tgme_page_title']//text()").text.inspect        #title
+        t['description'] = doc.xpath(".//*[@class='tgme_page_description']//text()").text  #описание
+        t['extra'] = doc.xpath(".//*[@class='tgme_page_extra']//text()").text         #чел
+        t['title'] = doc.xpath(".//*[@class='tgme_page_title']//text()").text        #title
         return t
+      else
+        return t['error']="error"
      end
   end
+
+  def self.delspec text
+    pattern = /!|’|"|\\/
+    text.delete!('\n')
+    text.delete!("\n")
+    text = text.gsub(pattern,"")
+    text.strip!
+  end
+
 end
