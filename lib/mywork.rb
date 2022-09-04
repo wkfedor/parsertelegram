@@ -16,7 +16,7 @@ class Mywork < ApplicationController
   end
 
   def self.mygropdata word # отправляю имя группы полуаю данные о ней
-     myurl = "https://t.me/#{word.delete "@" }"
+    p myurl = "https://t.me/#{word.delete "@" }"
      uri = URI.parse(myurl)
      http = Net::HTTP.new(uri.host, uri.port)
      http.use_ssl = true
@@ -32,9 +32,16 @@ class Mywork < ApplicationController
         t['description'] = doc.xpath(".//*[@class='tgme_page_description']//text()").text  #описание
         t['extra'] = doc.xpath(".//*[@class='tgme_page_extra']//text()").text         #чел
         t['title'] = doc.xpath(".//*[@class='tgme_page_title']//text()").text        #title
+        t['error']=response.code
+        p t
         return t
-      else
-        return t['error']="error"
+     else
+       p "error"
+       p response.code
+       t['error']=response.code
+       p t
+       return t
+
      end
   end
 

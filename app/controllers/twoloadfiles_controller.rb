@@ -9,63 +9,76 @@ class TwoloadfilesController < ApplicationController
 
 
   def workdbpage   # метод стрницы запуска прогона по временной базе статусов 1, 429
-    Wfile.where("flag in ('1','429')").order("id DESC").limit(2).each do |x|
-      p "13 str= #{x.word}"
+    Wfile.where("flag in ('1','429')").order("id DESC").limit(5).each do |x|
+
       # проверить есть ли имя в основной базе групп.
       if Mywork.findgroup(x.word) == true
         t=Mywork.mygropdata(x.word)
         #вернул что группы нет
-        #{}"If you have Telegram, you can contact #{x} right away"
-         p t.inspect
+        p "-------------------"
+        p t['error']
+        p "-------------------"
+        if t['error']!='200'
+          # пропустить цикл
+          # 302 редирект, почемуто группа не доступна с сайта происходит редирект на главную страницу телеграмм
+          if t['error']=='302'
+            p "update flag 302 #{x.word}"
+            x.update('flag'=>302)
+          else
+            p "flag!= 302 #{x.word}"
+          end
 
-         return '' if t['error']=='error'
-         p "\n  If you have Telegram, you can contact #{x.word} right away.\n"
-        if t['description'].include? "If you have Telegram, you can contact #{x.word} right away."
-        #группа есть записываем ее в базу
-         puts "401"
-         x.update('flag'=>401)
-         sleep 1
-       else
-          puts "201"
-          x.update('flag'=>201)
-          result={}
-          time=Time.now
-          result.store("username", x.word)
+           next
+          else
+            #получили инфу о группе, она или есть или нет
+            if t['description'].include? "If you have Telegram, you can contact #{x.word} right away."
+              #группа есть записываем ее в базу
+              puts "401"
+              x.update('flag'=>401)
+              sleep 1
+              #elsif ''
+              # puts 301
+            else
+              puts "201"
+              x.update('flag'=>201)
+              result={}
+              time=Time.now
+              result.store("username", x.word)
+              #t['title'].delete!("\n")
+              #t['description'].delete!("\n")
+              #t['title'].gsub!(/^\n/, '')
+              #t['title'].gsub!(/$\n/, '')
+              #t['description'].gsub!(/^\n/, '')
+              #t['description'].gsub!(/$\n/, '')
 
-          #pattern = /!|’|"|\\/
-          t['title'].delete!("\n")
-          t['description'].delete!("\n")
-          #t['title'] = t['title'].gsub(pattern,"")
-          #t['title'].strip!
 
-          result.store("title", t['title'])
-          result.store("description", t['description'])
-          result.store("datein", time)
-          #p t['description']
-          #p t['title']
-          p result
-          p "------------------------------------------------------"
-          @mygroup = Mygroup.new(result)
-          @mygroup.save
+              t['title'].strip!
+              t['description'].strip!
+              result.store("title", t['title'])
+              result.store("description", t['description'])
+              result.store("datein", time)
+              p result
+              p "------------------------------------------------------"
+              @mygroup = Mygroup.new(result)
+              @mygroup.save
+            end
         end
-
-
-        #группы нет
-        # 2 другие поля пустые "extra"=>"\"\"", "title"=>"\"\""
-        #tgme_page_description
-        #"If you have Telegram, you can contact @maksimborealis232323 right away"
-
-
       end
-      #
-      #
-
     end
   end
 
   def onlinestatupdatedb
+    @connection = ActiveRecord::Base.connection
+    resultstart = @connection.exec_query("SELECT count(id) FROM public.wfiles   where flag in ('1', '429')")
+    resultok = @connection.exec_query("SELECT count(id) FROM public.wfiles   where flag in ('200', '201')")
+    resulterror = @connection.exec_query("SELECT count(id) FROM public.wfiles   where flag in ('400', '401')")
+
+
     mas= %w{1 2 3 4 5 6 7 8 9}
-    render json:{success: mas.sample.to_s }
+    render json:{
+      "Необработано": resultstart.rows[0][0],
+      "В работе": resultok.rows[0][0],
+      "Ненайдено": resulterror.rows[0][0]}
   end
 
 

@@ -4,7 +4,7 @@ jQuery(function($){
 
 
 
-        var timeleft = 50;
+        var timeleft = 500;
         var downloadTimer = setInterval(function(){
             if(timeleft <= 0){
                 clearInterval(downloadTimer);
