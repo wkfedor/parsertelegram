@@ -16,6 +16,8 @@ jQuery(function($){
                 type: "POST",
                 data: {_method: 'START'},
                 success: function(data, textStatus, xhr) {
+                    JSON.parse(xhr.responseText)
+
                     $('#dialog_title_span').text(xhr.responseText);
                     $('#dialog_title_span2').text(timeleft);
                 }

@@ -33,13 +33,13 @@ class Mywork < ApplicationController
         t['extra'] = doc.xpath(".//*[@class='tgme_page_extra']//text()").text         #чел
         t['title'] = doc.xpath(".//*[@class='tgme_page_title']//text()").text        #title
         t['error']=response.code
-        p t
+        p t.inspect
         return t
      else
        p "error"
        p response.code
        t['error']=response.code
-       p t$autofills
+       p t.inspect
        return t
 
      end

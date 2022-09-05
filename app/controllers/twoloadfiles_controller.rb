@@ -69,16 +69,31 @@ class TwoloadfilesController < ApplicationController
 
   def onlinestatupdatedb
     @connection = ActiveRecord::Base.connection
-    resultstart = @connection.exec_query("SELECT count(id) FROM public.wfiles   where flag in ('1', '429')")
-    resultok = @connection.exec_query("SELECT count(id) FROM public.wfiles   where flag in ('200', '201')")
-    resulterror = @connection.exec_query("SELECT count(id) FROM public.wfiles   where flag in ('400', '401')")
+    resultstart = @connection.exec_query("SELECT count(id) FROM public.wfiles   where flag in ('1', '429')")    #
+    resultok = @connection.exec_query("SELECT count(id) FROM public.wfiles   where flag in ('200', '201')")     #
+    resulterror = @connection.exec_query("SELECT count(id) FROM public.wfiles   where flag in ('400', '401')")  #
+    tengropadd =[]
+    tengropwork =[]
 
+    Mygroup.order("updated_at desc").limit(10).each do |x|
+      tengropadd << {"username":x.username, "title":x.title, "description":x.description, "updated_at":x.updated_at}
+    end
+
+    Wfile.order("updated_at desc").limit(10).each do |x|
+      tengropwork << {"word":x.word, "flag":x.flag, "updated_at":x.updated_at}
+    end
+
+      #Wfile.where("flag in ('1','429')").order("id DESC").limit(5).each do |x|
+      # последние 10 групп которые добавили в базу. табличка
+     # последние 10 груп из wfiles которые учавствовали в проверки
 
     mas= %w{1 2 3 4 5 6 7 8 9}
     render json:{
-      "Необработано": resultstart.rows[0][0],
-      "В работе": resultok.rows[0][0],
-      "Ненайдено": resulterror.rows[0][0]}
+      "a": resultstart.rows[0][0],
+      "b": resultok.rows[0][0],
+      "c": resulterror.rows[0][0],
+      "d": tengropadd,
+      "e": tengropwork}
   end
 
 
