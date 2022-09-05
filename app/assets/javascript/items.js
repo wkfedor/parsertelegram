@@ -16,9 +16,28 @@ jQuery(function($){
                 type: "POST",
                 data: {_method: 'START'},
                 success: function(data, textStatus, xhr) {
-                    JSON.parse(xhr.responseText)
 
-                    $('#dialog_title_span').text(xhr.responseText);
+
+                    Object.entries(JSON.parse(xhr.responseText)).forEach((entry) => {
+                        const [key, value] = entry;
+                        if(key=='d')
+                        {
+
+                            for(var i=0;i<value.length;i++)
+                            {
+                                console.log('d: '+  value[i]['username'] + value[i]['title'] + value[i]['description'] );
+                            }
+
+                        }
+                        else
+                        {
+                            console.log(key + ': ' + value);
+                        }
+
+                    });
+
+
+                    $('#dialog_title_span').text( JSON.parse(xhr.responseText));
                     $('#dialog_title_span2').text(timeleft);
                 }
             })
