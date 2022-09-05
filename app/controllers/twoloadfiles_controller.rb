@@ -9,7 +9,7 @@ class TwoloadfilesController < ApplicationController
 
 
   def workdbpage   # метод стрницы запуска прогона по временной базе статусов 1, 429
-    Wfile.where("flag in ('1','429')").order("id DESC").limit(1).each do |x|
+    Wfile.where("flag in ('1','429')").order("id DESC").limit(20).each do |x|
 
       # проверить есть ли имя в основной базе групп.
       if Mywork.findgroup(x.word) == true
@@ -44,14 +44,6 @@ class TwoloadfilesController < ApplicationController
               result={}
               time=Time.now
               result.store("username", x.word)
-              #t['title'].delete!("\n")
-              #t['description'].delete!("\n")
-              #t['title'].gsub!(/^\n/, '')
-              #t['title'].gsub!(/$\n/, '')
-              #t['description'].gsub!(/^\n/, '')
-              #t['description'].gsub!(/$\n/, '')
-
-
               t['title'].strip!
               t['description'].strip!
               result.store("title", t['title'])
@@ -75,11 +67,11 @@ class TwoloadfilesController < ApplicationController
     tengropadd =[]
     tengropwork =[]
 
-    Mygroup.order("updated_at desc").limit(10).each do |x|
+    Mygroup.order("updated_at desc").limit(5).each do |x|
       tengropadd << {"username":x.username, "title":x.title, "description":x.description, "updated_at":x.updated_at}
     end
 
-    Wfile.order("updated_at desc").limit(10).each do |x|
+    Wfile.order("updated_at desc").limit(5).each do |x|
       tengropwork << {"word":x.word, "flag":x.flag, "updated_at":x.updated_at}
     end
 

@@ -1,9 +1,6 @@
 jQuery(function($){
     $("#startAction").click(function() {
 
-
-
-
         var timeleft = 500;
         var downloadTimer = setInterval(function(){
             if(timeleft <= 0){
@@ -17,17 +14,42 @@ jQuery(function($){
                 data: {_method: 'START'},
                 success: function(data, textStatus, xhr) {
 
-
+                    var temp='';
+                    var temp2='';
+                    var a='';
+                    var b='';
+                    var c='';
                     Object.entries(JSON.parse(xhr.responseText)).forEach((entry) => {
                         const [key, value] = entry;
+
                         if(key=='d')
                         {
-
                             for(var i=0;i<value.length;i++)
                             {
-                                console.log('d: '+  value[i]['username'] + value[i]['title'] + value[i]['description'] );
-                            }
+                                //console.log('d: '+  value[i]['username'] + value[i]['title'] + value[i]['description'] );
+                                temp += "<tr><td>" + value[i].username + "<\/td><td>" + value[i].title + "<\/td><td>" + value[i].description + "<\/td><\/tr>";
 
+                            }
+                        }
+                        else if(key=='a')
+                        {
+                            a= value
+                        }
+                        else if(key=='b')
+                        {
+                            b= value
+                        }
+                        else if(key=='c')
+                        {
+                            c= value
+                        }
+                        else if(key=='e')
+                        {
+                            for(var i=0;i<value.length;i++)
+                            {
+                                temp2 += "<tr><td>" + value[i].word + "<\/td><td>" + value[i].flag + "<\/td><td>" + value[i].updated_at + "<\/td><\/tr>";
+                                //console.log('e: '+  value[i]['word'] + value[i]['flag'] + value[i]['updated_at'] );
+                            }
                         }
                         else
                         {
@@ -35,10 +57,15 @@ jQuery(function($){
                         }
 
                     });
+                    //console.log(temp);
 
 
-                    $('#dialog_title_span').text( JSON.parse(xhr.responseText));
-                    $('#dialog_title_span2').text(timeleft);
+
+                    temp3='значение {"Необработано":'+a+',"В работе":'+b+',"Ненайдено":'+c+'}'
+                    $('#dialog_title_span').html(temp3);
+                    $('#dialog_title_span2').html('<table class="table"><thead class="thead-dark"><tr><th scope="col">Имя</th><th scope="col">Заголовок</th><th scope="col">Описание</th></tr></thead><tbody>'+temp+'</tbody></table>');
+                    $('#dialog_title_span3').html('<table class="table"><thead class="thead-dark"><tr><th scope="col">Имя</th><th scope="col">флаг</th><th scope="col">время</th></tr></thead><tbody>'+temp2+'</tbody></table>');
+                    $('#dialog_title_span4').text(timeleft);
                 }
             })
 
