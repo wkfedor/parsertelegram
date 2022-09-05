@@ -39,7 +39,7 @@ class Mywork < ApplicationController
        p "error"
        p response.code
        t['error']=response.code
-       p t
+       p t$autofills
        return t
 
      end

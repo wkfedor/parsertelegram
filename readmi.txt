@@ -135,3 +135,36 @@ mount_uploader :lfilename, LfileUploader   # в моделе
 
 как теперь жить:(
 https://t.me/s/frontend_info
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//<![CDATA[
+window.smevVariants = {"PKPVDMFC-2022-08-11-000006-53-01":
+{"name":"КУВД-001/2022-1090","selected":false,"owners":{"37364147-f807-4c4b-801c-b378c097ec6b":{"name":"Гречкина Людмила Владимировна","selected":false}},"objects":{"5836f907-eece-4bc3-9371-3bf706b2ef4e":{"name":"53:11:0500307:74","selected":false}}},"PKPVDMFC-2022-08-11-000006-53-02":{"name":"КУВД-001/2022-1090","selected":false,"owners":{"864d1064-ea8c-4578-8434-4f1f78a7f86f":{"name":"Петрущенко Людмила Владимировна","selected":false}},"objects":{"5c59f3b9-91dc-4685-a351-ce1a126ea10d":{"name":"53:11:0500307:74","selected":false}}}}; console.log(window.smevVariants)
+//]]>
+
+
+
+
+
+
+
+
+
+
