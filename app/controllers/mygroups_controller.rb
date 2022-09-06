@@ -10,6 +10,13 @@ class MygroupsController < ApplicationController
 
   # GET /mygroups/1 or /mygroups/1.json
   def show
+    @group= Mygroup.find(params[:id])
+    p   @group.dopmygroups.first.countuser unless @group.dopmygroups.first.nil?
+    #p @group.dopmygroups.first.countuser
+
+    #http://localhost:3001/mygroups/2102   # работает только с 1 связанной группой  !!! внимаение    has_one  не сработал, почему????
+
+
   end
 
   # GET /mygroups/new

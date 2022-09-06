@@ -1,3 +1,3 @@
 class Dopmygroup < ApplicationRecord
-  belongs_to :mygroup
+  has_one :mygroup
 end
