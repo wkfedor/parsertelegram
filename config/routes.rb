@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :dopmygroups
+
+
+  get 'workdbavto', to: 'twoloadfiles#workdbavto'
   get 'workdbpage', to: 'twoloadfiles#workdbpage'
   post 'onlinestatupdatedb', to: 'twoloadfiles#onlinestatupdatedb'
   get 'onlinestatupdatedb', to: 'twoloadfiles#onlinestatupdatedb'

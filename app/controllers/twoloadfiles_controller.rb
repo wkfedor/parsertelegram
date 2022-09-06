@@ -9,15 +9,12 @@ class TwoloadfilesController < ApplicationController
 
 
   def workdbpage   # метод стрницы запуска прогона по временной базе статусов 1, 429
-    Wfile.where("flag in ('1','429')").order("id DESC").limit(20).each do |x|
-
+    Wfile.where("flag in ('1','429')").order("id DESC").limit(5).each do |x|
       # проверить есть ли имя в основной базе групп.
       if Mywork.findgroup(x.word) == true
         t=Mywork.mygropdata(x.word)
         #вернул что группы нет
-        p "-------------------"
-        p t['error']
-        p "-------------------"
+        p "-------------------#{t['error']}-------------------"
         if t['error']!='200'
           # пропустить цикл
           # 302 редирект, почемуто группа не доступна с сайта происходит редирект на главную страницу телеграмм
@@ -27,7 +24,6 @@ class TwoloadfilesController < ApplicationController
           else
             p "flag!= 302 #{x.word}"
           end
-
            next
           else
             #получили инфу о группе, она или есть или нет
@@ -36,8 +32,6 @@ class TwoloadfilesController < ApplicationController
               puts "401"
               x.update('flag'=>401)
               sleep 1
-              #elsif ''
-              # puts 301
             else
               puts "201"
               x.update('flag'=>201)
@@ -58,6 +52,55 @@ class TwoloadfilesController < ApplicationController
       end
     end
   end
+
+
+  def workdbavto   # метод стрницы запуска прогона по временной базе статусов 1, 429
+    Wfile.where("flag in ('1','429')").order("id DESC").limit(5).each do |x|
+      # проверить есть ли имя в основной базе групп.
+      if Mywork.findgroup(x.word) == true
+        t=Mywork.mygropdata(x.word)
+        #вернул что группы нет
+        p "-------------------#{t['error']}-------------------"
+        if t['error']!='200'
+          # пропустить цикл
+          # 302 редирект, почемуто группа не доступна с сайта происходит редирект на главную страницу телеграмм
+          if t['error']=='302'
+            p "update flag 302 #{x.word}"
+            x.update('flag'=>302)
+          else
+            p "flag!= 302 #{x.word}"
+          end
+          next
+        else
+          #получили инфу о группе, она или есть или нет
+          if t['description'].include? "If you have Telegram, you can contact #{x.word} right away."
+            #группа есть записываем ее в базу
+            puts "401"
+            x.update('flag'=>401)
+            sleep 1
+          else
+            puts "201"
+            x.update('flag'=>201)
+            result={}
+            time=Time.now
+            result.store("username", x.word)
+            t['title'].strip!
+            t['description'].strip!
+            result.store("title", t['title'])
+            result.store("description", t['description'])
+            result.store("datein", time)
+            p result
+            p "------------------------------------------------------"
+            @mygroup = Mygroup.new(result)
+            @mygroup.save
+          end
+        end
+      end
+    end
+  end
+
+
+
 
   def onlinestatupdatedb
     @connection = ActiveRecord::Base.connection

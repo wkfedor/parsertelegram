@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @dopmygroup %>
+
+<div>
+  <%= link_to "Edit this dopmygroup", edit_dopmygroup_path(@dopmygroup) %> |
+  <%= link_to "Back to dopmygroups", dopmygroups_path %>
+
+  <%= button_to "Destroy this dopmygroup", @dopmygroup, method: :delete %>
+</div>

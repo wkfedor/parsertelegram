@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Dopmygroups</h1>
+
+<div id="dopmygroups">
+  <% @dopmygroups.each do |dopmygroup| %>
+    <%= render dopmygroup %>
+    <p>
+      <%= link_to "Show this dopmygroup", dopmygroup %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New dopmygroup", new_dopmygroup_path %>

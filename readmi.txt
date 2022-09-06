@@ -139,7 +139,8 @@ https://t.me/s/frontend_info
 6 сентября
 если парсиш через t.me возьми колличество человек
 
-
+rails g scaffold dopmygroup countuser:string comment:string mygroups:references
+rails destroy scaffold dopmygroup countuser:string comment:string mygroup:references
 
 
 
