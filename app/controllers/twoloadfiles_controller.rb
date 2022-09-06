@@ -9,7 +9,8 @@ class TwoloadfilesController < ApplicationController
 
 
   def workdbpage   # метод стрницы запуска прогона по временной базе статусов 1, 429
-    Wfile.where("flag in ('1','429')").order("id DESC").limit(5).each do |x|
+    ############################################################################################# переработать этот метод, задвоен
+    Wfile.where("flag in ('1','429')").order("id DESC").limit(1).each do |x|
       # проверить есть ли имя в основной базе групп.
       if Mywork.findgroup(x.word) == true
         t=Mywork.mygropdata(x.word)
@@ -40,6 +41,9 @@ class TwoloadfilesController < ApplicationController
               result.store("username", x.word)
               t['title'].strip!
               t['description'].strip!
+              t['extra'].gsub!(/\s+/, '')
+              t['extra'].gsub!(/[^\d]/, '')
+              #result.store("extra", t['extra'])           ################не сохраняет 6 сентября #to do
               result.store("title", t['title'])
               result.store("description", t['description'])
               result.store("datein", time)
@@ -55,7 +59,7 @@ class TwoloadfilesController < ApplicationController
 
 
   def workdbavto   # метод стрницы запуска прогона по временной базе статусов 1, 429
-    Wfile.where("flag in ('1','429')").order("id DESC").limit(5).each do |x|
+    Wfile.where("flag in ('1','429')").order("id DESC").limit(1).each do |x|
       # проверить есть ли имя в основной базе групп.
       if Mywork.findgroup(x.word) == true
         t=Mywork.mygropdata(x.word)
@@ -84,15 +88,20 @@ class TwoloadfilesController < ApplicationController
             result={}
             time=Time.now
             result.store("username", x.word)
+            t['extra'].gsub!(/\s+/, '')
+            t['extra'].gsub!(/[^\d]/, '')
+            #result.store("extra", t['extra'])           ################не сохраняет 6 сентября #to do
             t['title'].strip!
             t['description'].strip!
             result.store("title", t['title'])
             result.store("description", t['description'])
             result.store("datein", time)
             p result
-            p "------------------------------------------------------"
+            p t['extra']
+            p ":------------------------------------------------------:"
             @mygroup = Mygroup.new(result)
             @mygroup.save
+            @mygroup.dopmygroups.create({"countuser"=>t['extra'], "comment"=>"test comment"}).save
           end
         end
       end
