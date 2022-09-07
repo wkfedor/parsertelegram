@@ -3,11 +3,11 @@
 <%= form_tag workdbpage_path, method: :get do %>
   <span id="startAction">Запустить проверку групп</span>
 <% end %>
-
+<input type="hidden" name="buttonsstart"  id="buttonsstart"   value="no">
 <div class="container">
   <div class="row">
     <div class="col">
-      <span id="dialog_title_span">значение {"Необработано":xxxx,"В работе":xxx,"Ненайдено":xxx}</span>
+      <span id="dialog_title_span"><%=@startdata %></span>
       <br/>
       <span id="dialog_title_span2"></span>
       <br/>

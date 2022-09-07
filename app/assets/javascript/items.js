@@ -2,11 +2,29 @@ jQuery(function($){
     $("#startAction").click(function() {
 
         var timeleft = 500;
+        //$('#dialog_title_span4').text("в течении "+timeleft+" данные на странице будут обновляться автоматически");
         var downloadTimer = setInterval(function(){
             if(timeleft <= 0){
                 clearInterval(downloadTimer);
             }
             //$('#dialog_title_span').text ( 10 - timeleft);
+
+
+            // запрос ниже запускаем при следующих условиях
+            // однократно нажали на кнопку старт. далее запрос не запускаем
+           // alert($('#buttonsstart').value);
+            if($('#buttonsstart').val()=="no")
+            {
+              $.ajax({
+                url: "/workdbavto",
+                type: "post",
+                data: {_method: 'START'}
+             });
+                $('#buttonsstart').val("yes");
+            }
+
+
+
 
             $.ajax({
                 url: "/onlinestatupdatedb",
@@ -70,7 +88,7 @@ jQuery(function($){
             })
 
             timeleft -= 1;
-        }, 1000)
+        }, 100)
 
 
 
