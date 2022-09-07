@@ -1,6 +1,8 @@
   <th scope="row"><%= mygroup.iid %></th>
-  <td><%= mygroup.username %></td>
+  <td><%= link_to mygroup.username, "https://t.me/#{mygroup.username.delete "@" }" %>
+ </td>
   <td><%= mygroup.title %></td>
   <td><%= mygroup.description %></td>
+  <td><%= mygroup.dopmygroups.start(mygroup.id) %></td>
   <td><%= mygroup.countuser %></td>
   <td><%= mygroup.datein %></td>

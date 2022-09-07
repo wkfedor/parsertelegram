@@ -1,7 +1,7 @@
 jQuery(function($){
     $("#startAction").click(function() {
 
-        var timeleft = 500;
+        var timeleft = 200;
         //$('#dialog_title_span4').text("в течении "+timeleft+" данные на странице будут обновляться автоматически");
         var downloadTimer = setInterval(function(){
             if(timeleft <= 0){
@@ -88,7 +88,7 @@ jQuery(function($){
             })
 
             timeleft -= 1;
-        }, 100)
+        }, 500)
 
 
 

@@ -6,7 +6,7 @@ class MygroupsController < ApplicationController
     #@mygroups = Mygroup.all
     #  @wfiles = Wfile.search(params).paginate(page: params[:page], per_page: 50)
     @mygroups = Mygroup.search(params).paginate(page: params[:page], per_page: 50)
-  end
+  end#@mygroups = Mygroup.find(Dopmygroup.find(params[:id]).mygroup_id).username
 
   # GET /mygroups/1 or /mygroups/1.json
   def show
