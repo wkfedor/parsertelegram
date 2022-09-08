@@ -3,7 +3,8 @@ class DopmygroupsController < ApplicationController
 
   # GET /dopmygroups or /dopmygroups.json
   def index
-    @dopmygroups = Dopmygroup.all
+    @dopmygroups = Dopmygroup.search(params).paginate(page: params[:page], per_page: 50)
+    #@dopmygroups = Dopmygroup.all
   end
 
   # GET /dopmygroups/1 or /dopmygroups/1.json

@@ -1,11 +1,4 @@
-просмотр доп поля
-<div id="<%= dom_id dopmygroup %>">
-  <p><strong>Countuser:</strong>
-    <%= dopmygroup.countuser %></p>
-  <p><strong>Comment:</strong>
-    <%= dopmygroup.comment %></p>
-  <p><strong>cc:</strong>
-    <%= dopmygroup.mygroup_id %></p>
-  <p><strong>test data:</strong>
-    <%= @mygroups %></p>
-</div>
+<th scope="row"><%=   dopmygroup.id  %></th>
+<td><%= dopmygroup.countuser %></td>
+<td><%= dopmygroup.comment %></td>
+<td><%= link_to Mygroup.find(Dopmygroup.find(dopmygroup.id).mygroup_id).username, "https://t.me/#{Mygroup.find(Dopmygroup.find(dopmygroup.id).mygroup_id).username.delete "@" }" %></td>

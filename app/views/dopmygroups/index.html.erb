@@ -1,14 +1,39 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Dopmygroups</h1>
+<h1>Связанна с группами таблица: Допполя</h1>
+поиск по имени группы
 
 <div id="dopmygroups">
-  <% @dopmygroups.each do |dopmygroup| %>
-    <%= render dopmygroup %>
-    <p>
-      <%= link_to "Show this dopmygroup", dopmygroup %>
-    </p>
+  <%= will_paginate @dopmygroups %>
+  <%= form_tag dopmygroups_path, method: :get do %>
+    <%= text_field_tag :search, params[:search] ||="" %>
+    <%= submit_tag 'Search' %>
   <% end %>
-</div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">id</th>
+    <th scope="col">людей</th>
+    <th scope="col">комент</th>
+    <th scope="col">группа</th>
+    <th scope="col">Подробнее</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @dopmygroups.each do |dopmygroup| %>
+    <tr>
+      <%= render dopmygroup %>
+      <td>
+        <%= link_to "Show this dopmygroup", dopmygroup %>
+      </td>
+    </tr>
+
+  <% end %>
+  </tbody>
+</table>
+
+
+
 
 <%= link_to "New dopmygroup", new_dopmygroup_path %>
