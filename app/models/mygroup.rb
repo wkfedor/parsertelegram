@@ -1,5 +1,5 @@
 class Mygroup < ApplicationRecord
-  has_many :dopmygroups
+  has_many :dopmygroups,  dependent: :destroy
 
   def self.search(params)
     products = all # for not existing params args
