@@ -146,12 +146,13 @@ rails destroy scaffold dopmygroup countuser:string comment:string mygroup:refere
 9 сентября
 прочитай это сообщение через руби, что можно распарсить?
 https://t.me/react_js/1559459
-rails generate scaffold messge maintext:text user:text img:text dopid:integer mygroup:references
+rails generate scaffold message maintext:text user:text img:text dopid:integer mygroup:references
+rails destroy scaffold message maintext:text user:text img:text dopid:integer mygroup:references
 messge
 maintext:text   текст сообщения
 user:text       имя поьлзователя отпавившего сообщения
 img:text        ссылки на картинку
-dopid:integer
+dopid:integer   доп поле, не стал выностить в отдельную таблицу для упращения разработки, номер сообщения в t.me
 mygroup:references  ид группы
 
 

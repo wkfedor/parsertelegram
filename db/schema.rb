@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_06_080157) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_09_020507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_06_080157) do
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "maintext"
+    t.text "user"
+    t.text "img"
+    t.integer "dopid"
+    t.bigint "mygroup_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mygroup_id"], name: "index_messages_on_mygroup_id"
   end
 
   create_table "mygroups", force: :cascade do |t|
@@ -49,6 +60,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_06_080157) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "wfiles", force: :cascade do |t|
     t.string "word"
     t.string "flag"
@@ -59,4 +76,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_06_080157) do
   end
 
   add_foreign_key "dopmygroups", "mygroups"
+  add_foreign_key "messages", "mygroups"
 end
