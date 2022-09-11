@@ -74,7 +74,7 @@ class MessagesController < ApplicationController
        p my.inspect
        p  my.text
        p  my.text.nil?
-       p "----------"
+       p "---------- "
 
        if doc.xpath(".//*[@class='tgme_widget_message_error']//text()").count > 0
          p "нужно меньше"
