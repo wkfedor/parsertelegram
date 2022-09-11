@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :messages
   resources :dopmygroups
-
+  get 'debug100', to: 'messages#debug100'
 
   get 'workdbavto', to: 'twoloadfiles#workdbavto'
   post 'workdbavto', to: 'twoloadfiles#workdbavto'

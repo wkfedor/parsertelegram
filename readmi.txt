@@ -155,6 +155,11 @@ img:text        ссылки на картинку
 dopid:integer   доп поле, не стал выностить в отдельную таблицу для упращения разработки, номер сообщения в t.me
 mygroup:references  ид группы
 
+https://t.me/rubyschool/296123  последнее сообщение из группы
+использовать ряд фибоначи для поиска его?
+делить на 2 и сужать диапазон
 
+rails generate migration AddTmeToDopmygroups tme:integer
 
-
+https://t.me/logistics1520com/121000?embed=1
+https://t.me/rubyschool/121000?embed=1
