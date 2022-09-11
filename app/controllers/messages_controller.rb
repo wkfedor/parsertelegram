@@ -47,7 +47,7 @@ class MessagesController < ApplicationController
        i=0
 
 
-       myurl = "https://t.me/#{group}/#{poznow}"
+       myurl = "https://t.me/#{group}/#{poznow}?embed=1"
        uri = URI.parse(myurl)
        http = Net::HTTP.new(uri.host, uri.port)
        http.use_ssl = true
@@ -57,14 +57,37 @@ class MessagesController < ApplicationController
        content=response.body
        t={}
        doc = Nokogiri::HTML(content)
-       t['url'] = myurl
-       t['description'] = doc.xpath(".//*[@class='tgme_page_description']//text()").text  #описание
-       t['extra'] = doc.xpath(".//*[@class='tgme_page_extra']//text()").text         #чел
-       t['title'] = doc.xpath(".//*[@class='tgme_page_title']//text()").text        #title
-       t['error']=response.code
+        t['url'] = myurl
+       #t['description'] = doc.xpath(".//*[@class='tgme_page_description']//text()").text  #описание
+       #t['extra'] = doc.xpath(".//*[@class='tgme_page_extra']//text()").text         #чел
+       #t['title'] = doc.xpath(".//*[@class='tgme_page_title']//text()").text        #title
+       #t['error']=response.code
+       #div[@class='tgme_widget_message_error']//text()       #пост не найден
+       # .//*[@class='tgme_widget_message_user']//a/@href     # ссылка на автора
+       # .//*[@class='tgme_widget_message_text js-message_text']//text() # текст сообщения
+       #
+       #=begin
+       p "----------"
+       p t['url']
+       my= doc.xpath(".//*[@class='tgme_widget_message_error'][contains(text(), 'Post not found')]")
+       p my.count
+       p my.inspect
+       p  my.text
+       p  my.text.nil?
+       p "----------"
+
+       if doc.xpath(".//*[@class='tgme_widget_message_error']//text()").count > 0
+         p "нужно меньше"
+         #  p doc.xpath(".//*[@class='tgme_widget_message_error']//text()").text
+       else
+         p "нужно больше"
+         # p doc.xpath(".//*[@class='tgme_widget_message_error']//text()").text
+       end
+#=end
+       # doc.xpath(".//*[@class='tgme_widget_message_error']")
 
      end
-     p t
+
      return t
   end
 
