@@ -29,6 +29,14 @@ class MessagesController < ApplicationController
 
   end
 
+  def debug101 # тестирую микросервис на синатре, поадаю группу получаю число
+    myurl="http://localhost:4567/rubyschool"
+    @data=dataparshttp(myurl).body
+    #@data="rubyschool"
+    #@data2="logistics1520com"
+
+  end
+
   def findoldmessages group # метод ищет номер последнего сообщения в группе на сайте t.me
 
      p=Mywork.mygropdata(group)
@@ -146,6 +154,17 @@ class MessagesController < ApplicationController
     response = http.request(request)
     content=response.body
     Nokogiri::HTML(content)
+  end
+
+  def dataparshttp myurl
+    uri = URI.parse(myurl)
+    http = Net::HTTP.new(uri.host, uri.port)
+    #http.use_ssl = true
+    #http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    response
+    #Nokogiri::HTML(content)
   end
 
 
