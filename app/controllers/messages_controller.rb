@@ -45,36 +45,58 @@ class MessagesController < ApplicationController
      right=poznow
      stop=0
 
-
+     masurl=[]
      t={}
      t['status']=[]
      t['messages']=[]
      t['poznow']=[]
      t['poznow'] << poznow
      t['url']=[]
+     masrand=[rand(1...100),rand(100...200),rand(300...500)]
+     myurllam = lambda{|x,y| "https://t.me/#{x}/#{y}?embed=1"}
+
+
      while  i > 0 do
 
        myurl = "https://t.me/#{group}/#{poznow}?embed=1"
-       uri = URI.parse(myurl)
-       http = Net::HTTP.new(uri.host, uri.port)
-       http.use_ssl = true
-       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-       request = Net::HTTP::Get.new(uri.request_uri)
-       response = http.request(request)
-       content=response.body
-       doc = Nokogiri::HTML(content)
+
+       masurl = myurllam.call(group,(poznow+masrand[0]))
 
 
 
+       doc=datapars myurl
        # my= doc.xpath(".//*[@class='tgme_widget_message_error'][contains(text(), 'Post not found')]")
 
-       if doc.xpath(".//*[@class='tgme_widget_message_error']//text()").count > 0
+       #if doc.xpath(".//*[@class='tgme_widget_message_error']//text()").count > 0
+       if datapars?(myurl)
+
+         unless datapars?(masurl)
+           p "--------------------ERROR FIND true------start=   #{myurl}   povtor=  #{masurl}       -----------------------------------"
+           p  "masurl=#{masurl}"
+           p  "poznow=#{poznow}"
+           p  "stop=#{stop}"
+           poznow=poznow+masrand[0]
+           next
+         else
+           p "--------------------ERROR FIND false------start=   #{myurl}   povtor=  #{masurl}       -----------------------------------"
+         end
+         # может быть меньше, вдруг стоп левый?
+           #if datapars?(masurl[0]) #&& datapars?(masurl[1]) && datapars?(masurl[2])
+           #poznow+=masrand[0]
+           #if datapars?(masurl[1])
+           #  poznow+=masrand[1]
+           #datapars?(masurl[2])  ? poznow+=masrand[2] :  next
+           # может быть меньше, вдруг стоп левый?
+
          t['status'] << "нужно меньше" #  получили сообщения пост не найден
          stop=poznow    # позицию в значении stop не пересекаем, дальше ничего нет
          poznow=left+(right-left)/2
          right=poznow
+
+
+
        else
-            if doc.xpath(".//*[@class='tgme_widget_message_text js-message_text']//text()").text.length > 0
+         # if doc.xpath(".//*[@class='tgme_widget_message_text js-message_text']//text()").text.length > 0
              t['messages'] << doc.xpath(".//*[@class='tgme_widget_message_text js-message_text']//text()").text
              t['status'] << "нужно больше"
 
@@ -85,7 +107,7 @@ class MessagesController < ApplicationController
                poznow=poznow*2
              end
              right=poznow
-            end
+         #  end
        end
 
        t['url'] << myurl
@@ -95,6 +117,7 @@ class MessagesController < ApplicationController
        p "status=#{t['status']}"
        p "poznow=#{poznow}"
        p "url=#{myurl}"
+       p "stop=#{stop}"
        p "----------------------"
        i-=1
      end
@@ -150,4 +173,22 @@ class MessagesController < ApplicationController
     def message_params
       params.require(:message).permit(:maintext, :user, :img, :dopid, :mygroup_id)
     end
+  def datapars myurl
+    uri = URI.parse(myurl)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    content=response.body
+    Nokogiri::HTML(content)
+  end
+
+
+  def datapars? myurl    # если тру то пост не нашли
+    doc=datapars myurl
+    doc.xpath(".//*[@class='tgme_widget_message_error']//text()").count > 0 ? true : false
+  end
+
+
 end
