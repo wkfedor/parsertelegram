@@ -40,12 +40,19 @@ class MessagesController < ApplicationController
      #2400 - 296123   =  123
      #8700 - 250791  =  30
      i=15      # ограничу поиск размера группы 15 запросами
-     debit=0
-     credit=0
-     poznow=p['extra']*50
-     while  i > 0 do
-       i=0
+     poznow=p['extra']*30
+     left=0
+     right=poznow
+     stop=0
 
+
+     t={}
+     t['status']=[]
+     t['messages']=[]
+     t['poznow']=[]
+     t['poznow'] << poznow
+     t['url']=[]
+     while  i > 0 do
 
        myurl = "https://t.me/#{group}/#{poznow}?embed=1"
        uri = URI.parse(myurl)
@@ -55,39 +62,42 @@ class MessagesController < ApplicationController
        request = Net::HTTP::Get.new(uri.request_uri)
        response = http.request(request)
        content=response.body
-       t={}
        doc = Nokogiri::HTML(content)
-        t['url'] = myurl
-       #t['description'] = doc.xpath(".//*[@class='tgme_page_description']//text()").text  #описание
-       #t['extra'] = doc.xpath(".//*[@class='tgme_page_extra']//text()").text         #чел
-       #t['title'] = doc.xpath(".//*[@class='tgme_page_title']//text()").text        #title
-       #t['error']=response.code
-       #div[@class='tgme_widget_message_error']//text()       #пост не найден
-       # .//*[@class='tgme_widget_message_user']//a/@href     # ссылка на автора
-       # .//*[@class='tgme_widget_message_text js-message_text']//text() # текст сообщения
-       #
-       #=begin
-       p "----------"
-       p t['url']
-       my= doc.xpath(".//*[@class='tgme_widget_message_error'][contains(text(), 'Post not found')]")
-       p my.count
-       p my.inspect
-       p  my.text
-       p  my.text.nil?
-       p "---------- "
+
+
+
+       # my= doc.xpath(".//*[@class='tgme_widget_message_error'][contains(text(), 'Post not found')]")
 
        if doc.xpath(".//*[@class='tgme_widget_message_error']//text()").count > 0
-         p "нужно меньше"
-         #  p doc.xpath(".//*[@class='tgme_widget_message_error']//text()").text
+         t['status'] << "нужно меньше" #  получили сообщения пост не найден
+         stop=poznow    # позицию в значении stop не пересекаем, дальше ничего нет
+         poznow=left+(right-left)/2
+         right=poznow
        else
-         p "нужно больше"
-         # p doc.xpath(".//*[@class='tgme_widget_message_error']//text()").text
+            if doc.xpath(".//*[@class='tgme_widget_message_text js-message_text']//text()").text.length > 0
+             t['messages'] << doc.xpath(".//*[@class='tgme_widget_message_text js-message_text']//text()").text
+             t['status'] << "нужно больше"
+
+             left=poznow
+             if stop <= poznow*2 && stop!=0
+               poznow=poznow+(stop-poznow)/2
+             else
+               poznow=poznow*2
+             end
+             right=poznow
+            end
        end
-#=end
-       # doc.xpath(".//*[@class='tgme_widget_message_error']")
 
+       t['url'] << myurl
+       t['poznow'] << poznow
+
+       p "----------------------"
+       p "status=#{t['status']}"
+       p "poznow=#{poznow}"
+       p "url=#{myurl}"
+       p "----------------------"
+       i-=1
      end
-
      return t
   end
 
