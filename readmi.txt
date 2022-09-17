@@ -163,3 +163,6 @@ rails generate migration AddTmeToDopmygroups tme:integer
 
 https://t.me/logistics1520com/121000?embed=1
 https://t.me/rubyschool/121000?embed=1
+
+!!!! ВНИМАНИЕ ДЛЯ РАБОТЫ ОЧЕРЕДЕЙ НЕОБХОДИМ СЕРВЕР РЕДИС
+git push https://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@github.com/wkfedor/parsertelegram.git
