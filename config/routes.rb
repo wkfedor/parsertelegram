@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :dopmygroups
   get 'debug100', to: 'messages#debug100'
   get 'debug101', to: 'messages#debug101'
+  get 'debug102', to: 'messages#debug102'
 
   get 'workdbavto', to: 'twoloadfiles#workdbavto'
   post 'workdbavto', to: 'twoloadfiles#workdbavto'

@@ -37,6 +37,14 @@ class MessagesController < ApplicationController
 
   end
 
+  def debug102 # тестирую микросервис и очереди resque
+    @data="http://localhost:4567/rubyschool"
+    #@data=dataparshttp(myurl).body
+    #@data="rubyschool"
+    #@data2="logistics1520com"
+
+  end
+
   def findoldmessages group # метод ищет номер последнего сообщения в группе на сайте t.me
 
      p=Mywork.mygropdata(group)
