@@ -1,8 +1,9 @@
 class Dopmygroup < ApplicationRecord
-  has_one :mygroup
+  #has_one :mygroup
+  belongs_to :mygroup
 
   def self.start(id)
-    Dopmygroup.where("mygroup_id=#{id}").first&.countuser
+    Dopmygroup.where("mygroup_id=#{id}").countuser
   end
 
   def self.search(params)

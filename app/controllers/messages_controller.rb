@@ -38,11 +38,10 @@ class MessagesController < ApplicationController
   end
 
   def debug102 # тестирую микросервис и очереди resque
-    @data="http://localhost:4567/rubyschool"
-    #@data=dataparshttp(myurl).body
-    #@data="rubyschool"
-    #@data2="logistics1520com"
-
+    # сколько групп с пустым связанным поелм?
+    #@mygroupsdop = Mygroup.find(237).dopmygroup.countuser
+    @mygroupsdop =Mygroup.last.try(:dopmygroup).try(:countuser)
+    @mygroupsdop=Mygroup.where(id: Dopmygroup.pluck(:mygroup_id).uniq).inspect
   end
 
   def findoldmessages group # метод ищет номер последнего сообщения в группе на сайте t.me

@@ -3,6 +3,10 @@
  </td>
   <td><%= mygroup.title %></td>
   <td><%= mygroup.description %></td>
-  <td><%= mygroup.dopmygroups.start(mygroup.id) %></td>
+  <% unless mygroup.dopmygroup.nil? %>
+  <td><%= mygroup.dopmygroup.countuser %></td>
+    <% else %>
+    <td></td>
+    <% end %>
   <td><%= mygroup.countuser %></td>
   <td><%= mygroup.datein %></td>
