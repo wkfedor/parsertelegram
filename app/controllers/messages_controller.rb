@@ -40,8 +40,19 @@ class MessagesController < ApplicationController
   def debug102 # тестирую микросервис и очереди resque
     # сколько групп с пустым связанным поелм?
     #@mygroupsdop = Mygroup.find(237).dopmygroup.countuser
-    @mygroupsdop =Mygroup.last.try(:dopmygroup).try(:countuser)
-    @mygroupsdop=Mygroup.where(id: Dopmygroup.pluck(:mygroup_id).uniq).inspect
+    #@mygroupsdop =Mygroup.last.try(:dopmygroup).try(:countuser)
+    #@mygroupsdop=Mygroup.where(id: Dopmygroup.pluck(:mygroup_id).uniq)
+    #@mygroupsdop=@mygroupsdop.first.dopmygroup.inspect
+    @mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil})
+    @mygroupsdop.each do |x|
+
+        if x.dopmygroup.countuser.empty?
+          p "пусто"
+        else
+          p "ок"
+        end
+        p x.dopmygroup.countuser
+    end
   end
 
   def findoldmessages group # метод ищет номер последнего сообщения в группе на сайте t.me
