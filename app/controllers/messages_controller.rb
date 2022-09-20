@@ -43,16 +43,20 @@ class MessagesController < ApplicationController
     #@mygroupsdop =Mygroup.last.try(:dopmygroup).try(:countuser)
     #@mygroupsdop=Mygroup.where(id: Dopmygroup.pluck(:mygroup_id).uniq)
     #@mygroupsdop=@mygroupsdop.first.dopmygroup.inspect
-    @mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil})
-    @mygroupsdop.each do |x|
+    @mygroupsdop=[]
+    mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil}).limit(2)
+    mygroupsdop.each do |x|
 
-        if x.dopmygroup.countuser.empty?
-          p "пусто"
-        else
-          p "ок"
-        end
-        p x.dopmygroup.countuser
+      y= x.dopmygroup.countuser.empty? ? 1 : x.dopmygroup.countuser
+
+      #myurl="http://localhost:4567/#{x.username.delete "@" }"
+      myurl="http://localhost:4567/rubyschool"
+      p "--------------------#{x.username.delete "@" }--------------------"
+        data= findoldmessages "rubyschool"
+       p data
+      @mygroupsdop << data
     end
+    #@mygroupsdop
   end
 
   def findoldmessages group # метод ищет номер последнего сообщения в группе на сайте t.me
