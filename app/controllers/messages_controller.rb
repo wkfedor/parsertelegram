@@ -44,15 +44,10 @@ class MessagesController < ApplicationController
     #@mygroupsdop=Mygroup.where(id: Dopmygroup.pluck(:mygroup_id).uniq)
     #@mygroupsdop=@mygroupsdop.first.dopmygroup.inspect
     @mygroupsdop=[]
-    mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil}).limit(2)
+    mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil}).limit(10)
     mygroupsdop.each do |x|
-
       y= x.dopmygroup.countuser.empty? ? 1 : x.dopmygroup.countuser
-
-      #myurl="http://localhost:4567/#{x.username.delete "@" }"
-      myurl="http://localhost:4567/rubyschool"
-      p "--------------------#{x.username.delete "@" }--------------------"
-        data= findoldmessages "rubyschool"
+      data= findoldmessagesver2 "#{x.username.delete "@" }", y.to_i*30
        p data
       @mygroupsdop << data
     end
@@ -60,10 +55,11 @@ class MessagesController < ApplicationController
   end
 
   def findoldmessages group # метод ищет номер последнего сообщения в группе на сайте t.me
-
+    # с запросом колличества пользователей, устарелая версия
      p=Mywork.mygropdata(group)
-
+     p p.inspect
      temp=p['extra'].match(/([0-9 ]*)members,/)
+     p "-------#{temp[0]}-------"
      p['extra']=temp[1].gsub!(/\s+/, '').to_i
      # колличество пользователей умножаем на 50, далее в тесте на группы подберем коэфициент
      i=10      # ограничу поиск размера группы 15 запросами
@@ -112,11 +108,48 @@ class MessagesController < ApplicationController
        i-=1
      end
      return left
-
-
-
-
   end
+
+  def findoldmessagesver2 group, poznow # метод ищет номер последнего сообщения в группе на сайте t.me
+    i=10      # ограничу поиск размера группы 15 запросами
+    left=0
+    right=poznow
+    stop=0
+    t={}
+    t['messages']=[]
+    t['poznow']=[]
+    t['poznow'] << poznow
+    masrand=[rand(1...100),rand(100...200),rand(400...700)]
+    myurllam = lambda{|x,y| "https://t.me/#{x}/#{y}?embed=1"}
+    while  i > 0 do
+      p myurl = "https://t.me/#{group}/#{poznow}?embed=1"
+      masurl = myurllam.call(group,(poznow+masrand[2]))
+      doc=datapars myurl
+      if datapars?(myurl)
+        unless datapars?(masurl)
+          poznow=poznow+masrand[2]
+          next
+        end
+        stop=poznow    # позицию в значении stop не пересекаем, дальше ничего нет
+        poznow=left+(right-left)/2
+        right=poznow
+        t['messages'] << ""
+      else
+        t['messages'] << doc.xpath(".//*[@class='tgme_widget_message_text js-message_text']//text()").text
+        left=poznow
+        if stop <= poznow*2 && stop!=0
+          poznow=poznow+(stop-poznow)/2
+        else
+          poznow=poznow*2
+        end
+        right=poznow
+      end
+      t['poznow'] << poznow
+      i-=1
+    end
+    return left
+  end
+
 
 
   # POST /messages or /messages.json
