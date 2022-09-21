@@ -122,6 +122,8 @@ class MessagesController < ApplicationController
     masrand=[rand(1...100),rand(100...200),rand(400...700)]
     myurllam = lambda{|x,y| "https://t.me/#{x}/#{y}?embed=1"}
     while  i > 0 do
+      return 0 if poznow=0
+      
       p myurl = "https://t.me/#{group}/#{poznow}?embed=1"
       masurl = myurllam.call(group,(poznow+masrand[2]))
       doc=datapars myurl
