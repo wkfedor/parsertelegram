@@ -44,11 +44,19 @@ class MessagesController < ApplicationController
     #@mygroupsdop=Mygroup.where(id: Dopmygroup.pluck(:mygroup_id).uniq)
     #@mygroupsdop=@mygroupsdop.first.dopmygroup.inspect
     @mygroupsdop=[]
-    mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil}).limit(10)
+    mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil}).limit(3)
     mygroupsdop.each do |x|
       y= x.dopmygroup.countuser.empty? ? 1 : x.dopmygroup.countuser
       data= findoldmessagesver2 "#{x.username.delete "@" }", y.to_i*30
-       p data
+      #data=1
+      #@tme=Dopmygroup.find(x.dopmygroup.id)
+      #p @tme.update('tme'=>200)
+       p x.dopmygroup.update('tme'=>data)
+      # p x.dopmygroup.mygroup_id
+      # x.dopmygroup.tme=data
+      #x.dopmygroup.tme.update('tme'=>200)
+      #p x.save!
+
       @mygroupsdop << data
     end
     #@mygroupsdop
@@ -122,7 +130,7 @@ class MessagesController < ApplicationController
     masrand=[rand(1...100),rand(100...200),rand(400...700)]
     myurllam = lambda{|x,y| "https://t.me/#{x}/#{y}?embed=1"}
     while  i > 0 do
-      return 0 if poznow=0
+      return 1 if poznow==0
       
       p myurl = "https://t.me/#{group}/#{poznow}?embed=1"
       masurl = myurllam.call(group,(poznow+masrand[2]))
