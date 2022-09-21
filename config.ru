@@ -4,3 +4,6 @@ require_relative "config/environment"
 
 run Rails.application
 Rails.application.load_server
+AppName=Parsertelegram
+require 'resque/server'
+run Rack::URLMap.new "/" => AppName::Application,  "/resque" => Resque::Server.new
