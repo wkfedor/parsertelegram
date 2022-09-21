@@ -48,18 +48,10 @@ class MessagesController < ApplicationController
     mygroupsdop.each do |x|
       y= x.dopmygroup.countuser.empty? ? 1 : x.dopmygroup.countuser
       data= findoldmessagesver2 "#{x.username.delete "@" }", y.to_i*30
-      #data=1
-      #@tme=Dopmygroup.find(x.dopmygroup.id)
-      #p @tme.update('tme'=>200)
        p x.dopmygroup.update('tme'=>data)
-      # p x.dopmygroup.mygroup_id
-      # x.dopmygroup.tme=data
-      #x.dopmygroup.tme.update('tme'=>200)
-      #p x.save!
-
       @mygroupsdop << data
     end
-    #@mygroupsdop
+    p @mygroupsdop
   end
 
   def findoldmessages group # метод ищет номер последнего сообщения в группе на сайте t.me
