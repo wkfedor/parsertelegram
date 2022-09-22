@@ -48,11 +48,11 @@ class MessagesController < ApplicationController
     mygroupsdop.each do |x|
       y= x.dopmygroup.countuser.empty? ? 1 : x.dopmygroup.countuser
       #data= findoldmessagesver2 "#{x.username.delete "@" }", y.to_i*30
-      data=rand(1...10000)
-       Resque.enqueue(SimpleJob, ["#{x.username.delete "@" }", data] )
+      #data=rand(1...10000)
+       Resque.enqueue(SimpleJob, ["#{x.username.delete "@" }", y] )
 
-       p x.dopmygroup.update('tme'=>data)
-      @mygroupsdop << data
+      # p x.dopmygroup.update('tme'=>data)
+       @mygroupsdop << x.username
     end
     p @mygroupsdop
   end
