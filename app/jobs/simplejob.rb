@@ -1,17 +1,6 @@
 class SimpleJob
-  #require 'open-uri'
-  #require 'nokogiri'
-  #require "net/https"
-  #require 'uri'
   @queue = :maxcount
   def self.perform(mass)
-    # здесь делаем важные и полезные вещи
-    #testq = Testq.find(mass[0])
-    #p "---#{testq.inspect}---"
-    #testq.commentq="#{testq.commentq}, #{mass[1]}"
-    #testq.save
-    #sleep(5)
-    #Mywork.findgroupfilter(x)
     myurl="http://127.0.0.1:5200/group/#{mass[0]}/"
     p myurl
     data=dataparshttp(myurl).body
@@ -21,12 +10,10 @@ class SimpleJob
     puts parsed.inspect
     if ((parsed["work1"]).to_i>0) && ((parsed["work1"].to_i)<10)   # значение в рабочем диапазоне, все хорошо
       p Mygroup.find_by_username("@"+mass[0]).dopmygroup.update('tme'=>parsed['data'].to_i)
-      #p Mygroup.find_by_username("@"+mass[0]).inspect
-      #else # необходимо записать данные об ошибке
+    else # необходимо записать данные об ошибке
+      p Mygroup.find_by_username("@"+mass[0]).dopmygroup.update('comment'=>"в группе сообщения не найдены")
       #p "сработала else"  # необходимо добавить признак в доп поле что все завершилось ошибкой
     end
-
-
     puts "Job is ok! #{mass[0]}   #{data}   #{parsed.inspect}"
   end
 

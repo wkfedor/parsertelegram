@@ -44,17 +44,23 @@ class MessagesController < ApplicationController
     #@mygroupsdop=Mygroup.where(id: Dopmygroup.pluck(:mygroup_id).uniq)
     #@mygroupsdop=@mygroupsdop.first.dopmygroup.inspect
     @mygroupsdop=[]
-    mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil}).limit(2)
+    mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil}).limit(10)
     mygroupsdop.each do |x|
       y= x.dopmygroup.countuser.empty? ? 1 : x.dopmygroup.countuser
       #data= findoldmessagesver2 "#{x.username.delete "@" }", y.to_i*30
       #data=rand(1...10000)
-       Resque.enqueue(SimpleJob, ["#{x.username.delete "@" }", y] )
+      #Resque.enqueue(SimpleJob, ["#{x.username.delete "@" }", y] )
 
       # p x.dopmygroup.update('tme'=>data)
-       @mygroupsdop << "#{x.username.delete "@" }"
+
+       @mygroupsdop << "'#{x.username}'"
     end
-    p @mygroupsdop
+     @mygroupsdop=@mygroupsdop.join(',')
+    #@mygroupsdop.gsub!( /"/, '')
+    @mygroupsdop= "SELECT id, countuser, comment, mygroup_id, created_at, updated_at, tme
+	FROM public.dopmygroups
+	where mygroup_id in (	SELECT id
+	FROM public.mygroups where username in (#{@mygroupsdop}))"
   end
 
   def findoldmessages group # метод ищет номер последнего сообщения в группе на сайте t.me
