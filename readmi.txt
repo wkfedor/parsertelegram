@@ -167,3 +167,6 @@ https://t.me/rubyschool/121000?embed=1
 !!!! ВНИМАНИЕ ДЛЯ РАБОТЫ ОЧЕРЕДЕЙ НЕОБХОДИМ СЕРВЕР РЕДИС
 git push https://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@github.com/wkfedor/parsertelegram.git
 git push https://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@github.com/wkfedor/parsertelegram.git
+
+23.09.2022
+git clone https://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@github.com/wkfedor/microservice.git
