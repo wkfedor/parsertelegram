@@ -170,3 +170,12 @@ git push https://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@github.com/wkfedor/par
 
 23.09.2022
 git clone https://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@github.com/wkfedor/microservice.git
+
+24 сентября
+1) таблица категория групп, поля ид, имя описание
+2)стоп лист .......
+3)добавь в сообщение поле цензура
+4) exgram.ru попробуй развернуть пустой шаблон
+5) проект для документации типа того что делал денис или вики
+
+
