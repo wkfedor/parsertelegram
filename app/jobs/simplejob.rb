@@ -8,10 +8,17 @@ class SimpleJob
 
     parsed = JSON.parse(data)
     puts parsed.inspect
+    @mygroup=Mygroup.find_by_username("@"+mass[0]).dopmygroup
     if ((parsed["work1"]).to_i>0) && ((parsed["work1"].to_i)<10)   # значение в рабочем диапазоне, все хорошо
-      p Mygroup.find_by_username("@"+mass[0]).dopmygroup.update('tme'=>parsed['data'].to_i)
+      p @mygroup.update('tme'=>parsed['data'].to_i)
+
+      if parsed['count']!=0
+        p @mygroup.update('countuser'=>parsed['count'].to_i)
+      end
+
+
     else # необходимо записать данные об ошибке
-      p Mygroup.find_by_username("@"+mass[0]).dopmygroup.update('comment'=>"в группе сообщения не найдены")
+      p @mygroup.update('countuser'=>parsed['count'].to_i)
       #p "сработала else"  # необходимо добавить признак в доп поле что все завершилось ошибкой
     end
     puts "Job is ok! #{mass[0]}   #{data}   #{parsed.inspect}"

@@ -178,4 +178,13 @@ git clone https://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@github.com/wkfedor/mi
 4) exgram.ru попробуй развернуть пустой шаблон
 5) проект для документации типа того что делал денис или вики
 
+rails g migration sample_name_change_column_type
+захожу и меняю состав миграции прежде чем ее выполнить
+def change
+    change_column(:dopmygroups, :countuser, :integer)
+end
+несработало
 
+удаляю поле, добавляю поле
+rails generate migration remove_countuser_from_dopmygroups countuser:string
+rails generate migration AddCountuserToDopmygroups countuser:integer

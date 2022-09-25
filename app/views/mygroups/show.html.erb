@@ -1,9 +1,51 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @mygroup %>
+
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">id</th>
+    <th scope="col">имя группы</th>
+    <th scope="col">заголовок</th>
+    <th scope="col">описание</th>
+    <th scope="col">людей</th>
+    <th scope="col">Старт парсинга</th>
+    <th scope="col">дата</th>
+    <th scope="col">изменить</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <th scope="row"><%= @mygroup.id %></th>
+
+  <td><%= link_to @mygroup.username, "https://t.me/#{@mygroup.username.delete "@" }",target: "_blank"   %>
+  </td>
+  <td><%= @mygroup.title %></td>
+  <td><%= @mygroup.description %></td>
+  <% unless @mygroup.dopmygroup.nil? %>
+    <td><%= @mygroup.dopmygroup.countuser %></td>
+  <% else %>
+    <td></td>
+  <% end %>
+
+
+  <% unless @mygroup.dopmygroup.nil? %>
+    <td><%= link_to @mygroup.dopmygroup.tme, "https://t.me/#{@mygroup.username.delete "@" }/#{@mygroup.dopmygroup.tme}?embed=1",target: "_blank"   %></td>
+  <% else %>
+    <td></td>
+  <% end %>
+
+
+
+  <td><%= @mygroup.datein %></td>
+  <td> <%= link_to "Edit this mygroup", edit_mygroup_path(@mygroup) %></td>
+
+  </tbody>
+</table>
 
 <div>
-  <%= link_to "Edit this mygroup", edit_mygroup_path(@mygroup) %> |
+
   <%= link_to "Back to mygroups", mygroups_path %>
 
   <%= button_to "Destroy this mygroup", @mygroup, method: :delete %>

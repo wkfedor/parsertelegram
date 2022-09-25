@@ -9,7 +9,6 @@ class TwoloadfilesController < ApplicationController
 
 
   def workdbpage
-
     @startdata="значение {\"Необработано\":#{ Wfile.todo ||= "xxx"},\"В работе:\"#{ Wfile.invork ||= "xxx"},\"Ненайдено\":#{ Wfile.error ||= "xxx"}}"
   end
 
