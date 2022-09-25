@@ -63,6 +63,15 @@ class MessagesController < ApplicationController
 	FROM public.mygroups where username in (#{@mygroupsdop}))"
   end
 
+  def debug103
+    @mygroupsdop="debug103
+получая имя группы вывожу из нее сообщения до значений указанных в енв
+типа енв1 = 100 енв2=200 енв3=300 енв4=500 енв5=1000 енв6=все
+чем больше енв, тем приоритетнее группа
+"
+  end
+
+
   def findoldmessages group # метод ищет номер последнего сообщения в группе на сайте t.me
     # с запросом колличества пользователей, устарелая версия
      p=Mywork.mygropdata(group)

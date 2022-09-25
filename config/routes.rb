@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'debug100', to: 'messages#debug100'
   get 'debug101', to: 'messages#debug101'
   get 'debug102', to: 'messages#debug102'
+  get 'debug103', to: 'messages#debug103'
 
   get 'workdbavto', to: 'twoloadfiles#workdbavto'
   post 'workdbavto', to: 'twoloadfiles#workdbavto'
