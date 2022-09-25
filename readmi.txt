@@ -185,6 +185,9 @@ def change
 end
 несработало
 
-удаляю поле, добавляю поле
+удаляю поле, добавляю поле, проблема типа поле, нужен инт была строка
 rails generate migration remove_countuser_from_dopmygroups countuser:string
 rails generate migration AddCountuserToDopmygroups countuser:integer
+
+
+!!!!!!работаем только через задачи в ишью!!!!!

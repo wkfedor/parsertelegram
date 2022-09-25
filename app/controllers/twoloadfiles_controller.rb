@@ -14,7 +14,7 @@ class TwoloadfilesController < ApplicationController
 
 
   def workdbavto   # метод стрницы запуска прогона по временной базе статусов 1, 429
-    Wfile.where("flag in ('1','429')").order("id DESC").limit(10).each do |x|
+    Wfile.where("flag in ('1','429')").order("id DESC").limit(1000).each do |x|
       # проверить есть ли имя в основной базе групп.
       if Mywork.findgroup(x.word) == true
         t=Mywork.mygropdata(x.word)
