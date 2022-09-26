@@ -69,6 +69,8 @@ class MessagesController < ApplicationController
 типа енв1 = 100 енв2=200 енв3=300 енв4=500 енв5=1000 енв6=все
 чем больше енв, тем приоритетнее группа
 "
+    mygroupsdop=Mygroup.joins(:dopmygroup).where.not(dopmygroups:{tme:nil}).limit(1000)
+    @data = mygroupsdop.count
   end
 
 
