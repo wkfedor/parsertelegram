@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_25_181102) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_27_015325) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_25_181102) do
     t.datetime "updated_at", null: false
     t.integer "tme"
     t.integer "countuser"
+    t.integer "endnow", comment: "номер сообщения на котором остановились на сайте t.me"
+    t.integer "rang", comment: "ранг группы по приросту сообщений"
+    t.integer "myrang", comment: "ранг группы по значимости субъективно, ставлю в ручную"
+    t.datetime "datenow", comment: "дата сообщения на котором остановислись"
+    t.datetime "datetodo", comment: "дата найденного сообщения в конце"
+    t.integer "todo", comment: "колличество сообщений между datenow и datetodo"
     t.index ["mygroup_id"], name: "index_dopmygroups_on_mygroup_id"
   end
 
