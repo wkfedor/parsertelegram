@@ -69,8 +69,17 @@ class MessagesController < ApplicationController
 типа енв1 = 100 енв2=200 енв3=300 енв4=500 енв5=1000 енв6=все
 чем больше енв, тем приоритетнее группа
 "
+    mas={}
     mygroupsdop=Mygroup.joins(:dopmygroup).where.not(dopmygroups:{tme:nil}).limit(1000)
-    @data = mygroupsdop.count
+    #@data = mygroupsdop.first.dopmygroup.tme
+     mygroupsdop.each do |x|
+       mas[x.id]=[]
+       mas[x.id] << x.username
+       mas[x.id] << x.dopmygroup.tme
+       mas[x.id] << Math::log(x.dopmygroup.tme).floor
+     end
+    @data=mas.inspect
+    #@data= Math::log(234504).floor
   end
 
 
