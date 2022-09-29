@@ -76,7 +76,7 @@ class MessagesController < ApplicationController
        mas[x.id]=[]
        mas[x.id] << x.username
        mas[x.id] << x.dopmygroup.tme
-       mas[x.id] << Math::log(x.dopmygroup.tme).floor
+       mas[x.id] << Math::log(x.dopmygroup.tme == 0 ? 1 : x.dopmygroup.tme).floor    # натуралный логарифм от нуля равен бесконечности
      end
     @data=mas.inspect
     #@data= Math::log(234504).floor
