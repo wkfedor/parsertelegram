@@ -77,6 +77,24 @@ class MessagesController < ApplicationController
        mas[x.id] << x.username
        mas[x.id] << x.dopmygroup.tme
        mas[x.id] << Math::log(x.dopmygroup.tme == 0 ? 1 : x.dopmygroup.tme).floor    # натуралный логарифм от нуля равен бесконечности
+       # данный оператор использую для наглядности
+=begin
+       case a
+       when 1
+         puts "Single value"
+       when 2, 3
+         puts "One of comma-separated values"
+       when 4..6
+         puts "One of 4, 5, 6"
+       when 7...9
+         puts "One of 7, 8, but not 9"
+       else
+         puts "Any other thing"
+       end
+=end
+
+
+
      end
     @data=mas.inspect
     #@data= Math::log(234504).floor
