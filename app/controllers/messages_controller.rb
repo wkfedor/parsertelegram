@@ -70,17 +70,20 @@ class MessagesController < ApplicationController
 чем больше енв, тем приоритетнее группа
 "
     mas={}
-    mygroupsdop=Mygroup.joins(:dopmygroup).where.not(dopmygroups:{tme:nil}).limit(1000)
+    mygroupsdop=Mygroup.joins(:dopmygroup).where.not(dopmygroups:{tme:nil}).limit(10)
     #@data = mygroupsdop.first.dopmygroup.tme
      mygroupsdop.each do |x|
        mas[x.id]=[]
        mas[x.id] << x.username
        mas[x.id] << x.dopmygroup.tme
-       mas[x.id] << Math::log(x.dopmygroup.tme == 0 ? 1 : x.dopmygroup.tme).floor    # натуралный логарифм от нуля равен бесконечности
+       log=Math::log(x.dopmygroup.tme == 0 ? 1 : x.dopmygroup.tme).floor
+       mas[x.id] << log    # натуралный логарифм от нуля равен бесконечности
+       y=rand(0...1000)
+       Resque.enqueue(MessageJob, ["#{x.username.delete "@" }", y] )
        # данный оператор использую для наглядности
 =begin
-       case a
-       when 1
+       case log
+       when 0...1
          puts "Single value"
        when 2, 3
          puts "One of comma-separated values"
