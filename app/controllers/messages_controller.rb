@@ -70,7 +70,7 @@ class MessagesController < ApplicationController
 чем больше енв, тем приоритетнее группа
 "
     mas={}
-    mygroupsdop=Mygroup.joins(:dopmygroup).where.not(dopmygroups:{tme:nil}).limit(10)
+    mygroupsdop=Mygroup.joins(:dopmygroup).where.not(dopmygroups:{tme:nil}).limit(1000)
     #@data = mygroupsdop.first.dopmygroup.tme
      mygroupsdop.each do |x|
        mas[x.id]=[]
@@ -79,8 +79,26 @@ class MessagesController < ApplicationController
        log=Math::log(x.dopmygroup.tme == 0 ? 1 : x.dopmygroup.tme).floor
        mas[x.id] << log    # натуралный логарифм от нуля равен бесконечности
        y=rand(0...1000)
-       Resque.enqueue(MessageJob, ["#{x.username.delete "@" }", y] )
+       # после преноса кода ниже в джобу, раскоментируй
+       #Resque.enqueue(MessageJob, ["#{x.username.delete "@" }", y] )
+       # после преноса кода ниже в джобу, раскоментируй
        # данный оператор использую для наглядности
+
+
+       ############################################# этот блок перенеси в джобу
+       # заглушка для работы не в джобе
+       mass=[]
+       mass[0]= "#{x.username.delete "@" }"
+       # заглушка для работы не в джобе
+       #parsed = JSON.parse(data)
+       #puts parsed.inspect
+       @mygroup=Mygroup.find_by_username("@"+mass[0])
+       log=Math::log(@mygroup.dopmygroup.tme == 0 ? 1 : @mygroup.dopmygroup.tme).floor
+       endnew= @mygroup.dopmygroup.tme - log*log
+       #@mygroup.dopmygroup.update('endnow'=>endnew) if @mygroup.dopmygroup.endnow.to_s == ''
+
+       mas[x.id] << endnew
+       ############################################# этот блок перенеси в джобу
 =begin
        case log
        when 0...1

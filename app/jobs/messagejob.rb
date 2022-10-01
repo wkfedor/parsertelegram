@@ -3,5 +3,7 @@ class MessageJob
   def self.perform(mass)
 
     puts "MessagesJob is ok! #{mass.inspect} "
+    #endnow
+
   end
  end
