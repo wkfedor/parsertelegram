@@ -96,9 +96,12 @@ class MessagesController < ApplicationController
        log=Math::log(@mygroup.dopmygroup.tme == 0 ? 1 : @mygroup.dopmygroup.tme).floor
        endnew= @mygroup.dopmygroup.tme - log*log
        #@mygroup.dopmygroup.update('endnow'=>endnew) if @mygroup.dopmygroup.endnow.to_s == ''
-
        mas[x.id] << endnew
-       ############################################# этот блок перенеси в джобу
+       #запускаю поиск последнего сообщения
+       # если оно не находиться добавляем КОНСТАНТУ сообщений для каждого типа групп
+       # тип групп имею ввиду логорифм от колличества сообщений в группе
+
+       ####### ###################################### этот блок перенеси в джобу
 =begin
        case log
        when 0...1
