@@ -70,7 +70,7 @@ class MessagesController < ApplicationController
 чем больше енв, тем приоритетнее группа
 "
     mas={}
-    mygroupsdop=Mygroup.joins(:dopmygroup).where.not(dopmygroups:{tme:nil}).limit(1000)
+    mygroupsdop=Mygroup.joins(:dopmygroup).where.not(dopmygroups:{tme:nil}).limit(10)
     #@data = mygroupsdop.first.dopmygroup.tme
      mygroupsdop.each do |x|
        mas[x.id]=[]
@@ -95,30 +95,13 @@ class MessagesController < ApplicationController
        @mygroup=Mygroup.find_by_username("@"+mass[0])
        log=Math::log(@mygroup.dopmygroup.tme == 0 ? 1 : @mygroup.dopmygroup.tme).floor
        endnew= @mygroup.dopmygroup.tme - log*log
-       #@mygroup.dopmygroup.update('endnow'=>endnew) if @mygroup.dopmygroup.endnow.to_s == ''
+       @mygroup.dopmygroup.update('endnow'=>endnew) if @mygroup.dopmygroup.endnow.to_s == '' && endnew>0
        mas[x.id] << endnew
+
        #запускаю поиск последнего сообщения
        # если оно не находиться добавляем КОНСТАНТУ сообщений для каждого типа групп
        # тип групп имею ввиду логорифм от колличества сообщений в группе
-
        ####### ###################################### этот блок перенеси в джобу
-=begin
-       case log
-       when 0...1
-         puts "Single value"
-       when 2, 3
-         puts "One of comma-separated values"
-       when 4..6
-         puts "One of 4, 5, 6"
-       when 7...9
-         puts "One of 7, 8, but not 9"
-       else
-         puts "Any other thing"
-       end
-=end
-
-
-
      end
     @data=mas.inspect
     #@data= Math::log(234504).floor
