@@ -97,10 +97,20 @@ class MessagesController < ApplicationController
        endnew= @mygroup.dopmygroup.tme - log*log
        @mygroup.dopmygroup.update('endnow'=>endnew) if @mygroup.dopmygroup.endnow.to_s == '' && endnew>0
        mas[x.id] << endnew
-
+       # !!!!!!!!!!!!!! у меня нет поиска последнего сообщения,
+       # так и надо или я забыл??????????????????????????????????? 11.11.2022
        #запускаю поиск последнего сообщения
        # если оно не находиться добавляем КОНСТАНТУ сообщений для каждого типа групп
        # тип групп имею ввиду логорифм от колличества сообщений в группе
+       #
+       #на основании массива заполняю таблицу месседж.
+       # не забываю записать данные в допмайгрупп.
+       (log*log).times  do |z|   # перебераем колличество сообщений которые нужно добавить в базу
+         myurl="https://t.me/#{x.username}/#{x.dopmygroup.tme.to_i + z}?embed=1"
+         #dataurl=dataparshttp(myurl).body
+         mas[x.id] << myurl
+       end
+       #
        ####### ###################################### этот блок перенеси в джобу
      end
     @data=mas.inspect
