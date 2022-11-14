@@ -106,9 +106,11 @@ class MessagesController < ApplicationController
        #на основании массива заполняю таблицу месседж.
        # не забываю записать данные в допмайгрупп.
        (log*log).times  do |z|   # перебераем колличество сообщений которые нужно добавить в базу
-         myurl="https://t.me/#{x.username}/#{x.dopmygroup.tme.to_i + z}?embed=1"
-         #dataurl=dataparshttp(myurl).body
+         myurl="https://t.me/#{x.username.delete "@"}/#{x.dopmygroup.tme.to_i + z}?embed=1"
+         dataurl=dataparshttp(myurl).body
+         #15/11/2022
          mas[x.id] << myurl
+         mas[x.id] << dataurl
        end
        #
        ####### ###################################### этот блок перенеси в джобу
