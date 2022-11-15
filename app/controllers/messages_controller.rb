@@ -117,7 +117,8 @@ class MessagesController < ApplicationController
            usernamelink=doc.xpath(".//*[@class='tgme_widget_message_owner_name']/@href").text
            header=''
            # img=doc.xpath(".//a[@class='tgme_widget_message_photo_wrap']/@href").text     # не работает, нужно искать по части имени класса
-           # video=''
+           # video='' #поиск видео
+           # ответ на сообщение
            date=doc.xpath(".//time[@class='datetime']/@datetime").text
            look=doc.xpath(".//*[@class='tgme_widget_message_views']//text()").text
 
