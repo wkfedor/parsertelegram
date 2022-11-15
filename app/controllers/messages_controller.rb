@@ -70,7 +70,7 @@ class MessagesController < ApplicationController
 чем больше енв, тем приоритетнее группа
 "
     mas={}
-    mygroupsdop=Mygroup.joins(:dopmygroup).where.not(dopmygroups:{tme:nil}).limit(10)
+    mygroupsdop=Mygroup.joins(:dopmygroup).where.not(dopmygroups:{tme:nil}).limit(3)
     #@data = mygroupsdop.first.dopmygroup.tme
      mygroupsdop.each do |x|
        mas[x.id]=[]
@@ -107,10 +107,28 @@ class MessagesController < ApplicationController
        # не забываю записать данные в допмайгрупп.
        (log*log).times  do |z|   # перебераем колличество сообщений которые нужно добавить в базу
          myurl="https://t.me/#{x.username.delete "@"}/#{x.dopmygroup.tme.to_i + z}?embed=1"
-         dataurl=dataparshttp(myurl).body
-         #15/11/2022
+         dataurl=datapars2(myurl)
+         if dataurl.code == '200'
+           mas[x.id] << "ok"
+
+           doc= Nokogiri::HTML(dataurl.body)
+           temp=doc.xpath(".//*[@class='tgme_widget_message_text js-message_text']//text()").text
+           usernametext=doc.xpath(".//*[@class='tgme_widget_message_owner_name']//text()").text
+           usernamelink=doc.xpath(".//*[@class='tgme_widget_message_owner_name']/@href").text
+           header=''
+           # img=doc.xpath(".//a[@class='tgme_widget_message_photo_wrap']/@href").text     # не работает, нужно искать по части имени класса
+           # video=''
+           date=doc.xpath(".//time[@class='datetime']/@datetime").text
+           look=doc.xpath(".//*[@class='tgme_widget_message_views']//text()").text
+
+
+           mas[x.id] << temp
+           p "--------------------------------------#{temp}------------------------------------------------------"
+         else
+           mas[x.id] << dataurl.code
+         end
+
          mas[x.id] << myurl
-         mas[x.id] << dataurl
        end
        #
        ####### ###################################### этот блок перенеси в джобу
@@ -278,6 +296,17 @@ class MessagesController < ApplicationController
     content=response.body
     Nokogiri::HTML(content)
   end
+
+
+  def datapars2 myurl
+    uri = URI.parse(myurl)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(uri.request_uri)
+    http.request(request)
+  end
+
 
   def dataparshttp myurl
     uri = URI.parse(myurl)
