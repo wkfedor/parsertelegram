@@ -110,21 +110,20 @@ class MessagesController < ApplicationController
          dataurl=datapars2(myurl)
          if dataurl.code == '200'
            mas[x.id] << "ok"
-
+           id=x.dopmygroup.tme.to_i + z
            doc= Nokogiri::HTML(dataurl.body)
-           temp=doc.xpath(".//*[@class='tgme_widget_message_text js-message_text']//text()").text
+           messages=doc.xpath(".//*[@class='tgme_widget_message_text js-message_text']//text()").text
            usernametext=doc.xpath(".//*[@class='tgme_widget_message_owner_name']//text()").text
            usernamelink=doc.xpath(".//*[@class='tgme_widget_message_owner_name']/@href").text
-           header=''
-           # img=doc.xpath(".//a[@class='tgme_widget_message_photo_wrap']/@href").text     # не работает, нужно искать по части имени класса
-           # video='' #поиск видео
-           # ответ на сообщение
+           img=doc.xpath(".//a[@class='tgme_widget_message_photo_wrap']/@href").text     # не работает, нужно искать по части имени класса
+           videoimg=doc.xpath(".//i[@class='tgme_widget_message_video_thumb']/@style").text.match(/(background-image:url\(\')(.*)(\')/) #ссылка на превью видео картинку
+           otvet=doc.xpath(".//*[@class='tgme_widget_message_forwarded_from accent_color']//text()").text #ответ на сообщение
            date=doc.xpath(".//time[@class='datetime']/@datetime").text
            look=doc.xpath(".//*[@class='tgme_widget_message_views']//text()").text
 
 
-           mas[x.id] << temp
-           p "--------------------------------------#{temp}------------------------------------------------------"
+           mas[x.id] << {:messages=>messages,:usernametext=>usernametext,:usernamelink=>usernamelink,:img=>img,:videoimg=>videoimg.nil? ? nil: videoimg[2],:otvet=>otvet,:date=>date,:look=>look, :id=>id}
+           p "------------------------------------------------------------------------------------------"
          else
            mas[x.id] << dataurl.code
          end
