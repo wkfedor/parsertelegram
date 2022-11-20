@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_27_015325) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_20_025211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,13 +38,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_015325) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.text "maintext"
-    t.text "user"
+    t.text "messages"
+    t.text "usernametext"
     t.text "img"
     t.integer "dopid"
     t.bigint "mygroup_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "usernamelink"
+    t.string "videoimg"
+    t.string "otvet"
+    t.datetime "date"
+    t.integer "look"
+    t.string "error"
     t.index ["mygroup_id"], name: "index_messages_on_mygroup_id"
   end
 

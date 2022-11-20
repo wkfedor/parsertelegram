@@ -106,12 +106,16 @@ class MessagesController < ApplicationController
        #на основании массива заполняю таблицу месседж.
        # не забываю записать данные в допмайгрупп.
        (log*log).times  do |z|   # перебераем колличество сообщений которые нужно добавить в базу
+         if Message.indata(x.id,x.dopmygroup.tme.to_i + z).first.nil?  # если в базе есть в меседжах запись о этой группе и этом сообщении то пропускаем
          myurl="https://t.me/#{x.username.delete "@"}/#{x.dopmygroup.tme.to_i + z}?embed=1"
          dataurl=datapars2(myurl)
          if dataurl.code == '200'
            mas[x.id] << "ok"
-           id=x.dopmygroup.tme.to_i + z
+           dopid=x.dopmygroup.tme.to_i + z
            doc= Nokogiri::HTML(dataurl.body)
+           notdara=doc.xpath(".//*[@class='tgme_widget_message_error']//text()").count > 0 ? true : false
+
+           if notdara== false
            messages=doc.xpath(".//*[@class='tgme_widget_message_text js-message_text']//text()").text
            usernametext=doc.xpath(".//*[@class='tgme_widget_message_owner_name']//text()").text
            usernamelink=doc.xpath(".//*[@class='tgme_widget_message_owner_name']/@href").text
@@ -120,15 +124,22 @@ class MessagesController < ApplicationController
            otvet=doc.xpath(".//*[@class='tgme_widget_message_forwarded_from accent_color']//text()").text #ответ на сообщение
            date=doc.xpath(".//time[@class='datetime']/@datetime").text
            look=doc.xpath(".//*[@class='tgme_widget_message_views']//text()").text
-
-
-           mas[x.id] << {:messages=>messages,:usernametext=>usernametext,:usernamelink=>usernamelink,:img=>img,:videoimg=>videoimg.nil? ? nil: videoimg[2],:otvet=>otvet,:date=>date,:look=>look, :id=>id}
-           p "------------------------------------------------------------------------------------------"
+           temp={:messages=>messages,:usernametext=>usernametext,:usernamelink=>usernamelink,:img=>img,:videoimg=>videoimg.nil? ? nil: videoimg[2],:otvet=>otvet,:date=>date,:look=>look, :dopid=>dopid, :mygroup_id=>x.id}
+           mas[x.id] <<temp
+           else
+             temp={:dopid=>dopid, :mygroup_id=>x.id, :error=>"Post not found"}
+           end
+           Message.new(temp).save
          else
            mas[x.id] << dataurl.code
          end
-
          mas[x.id] << myurl
+
+         else # если в базе есть в меседжах запись о этой группе и этом сообщении то пропускаем
+           # обработай состояние если было записано пустое сообщение todo
+           p "error"
+         end
+
        end
        #
        ####### ###################################### этот блок перенеси в джобу
