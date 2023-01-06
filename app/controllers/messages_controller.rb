@@ -44,7 +44,7 @@ class MessagesController < ApplicationController
     #@mygroupsdop=Mygroup.where(id: Dopmygroup.pluck(:mygroup_id).uniq)
     #@mygroupsdop=@mygroupsdop.first.dopmygroup.inspect
     @mygroupsdop=[]
-    mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil}).limit(1000)
+    mygroupsdop=Mygroup.joins(:dopmygroup).where(dopmygroups:{tme:nil}).limit(30)
     mygroupsdop.each do |x|
       y= x.dopmygroup.countuser.try(:empty?) ? 1 : x.dopmygroup.countuser
       #data= findoldmessagesver2 "#{x.username.delete "@" }", y.to_i*30
